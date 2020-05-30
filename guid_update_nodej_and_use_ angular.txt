@@ -1,0 +1,7 @@
+clean cache : npm cache clean -f
+check version node: node -v
+check version nom : npm -v
+create new angular: ng new <nameproject>
+open project: ng serve --open.
+xem version in angular : ng --version.
+upgrade angular: ng update @angular/cli @angular/core

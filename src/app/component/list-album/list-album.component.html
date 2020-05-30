@@ -1,0 +1,37 @@
+<div class="row">
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+        <div class="alert alert-light" role="alert">
+            List albums!
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- event from component child to parent -->
+        <app-search-name (eventSearch)=getValueSearch($event)></app-search-name>
+    </div>
+
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+        <table class="table table-hover table-light">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User id</th>
+                    <th scope="col">Title</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listAlbum">
+                    <td scope="row">{{item.id}}</td>
+                    <td scope="row">{{item.userId}}</td>
+                    <td scope="row">{{item.title}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- error -->
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+        {{messageError}}
+    </div>
+</div>

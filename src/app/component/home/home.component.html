@@ -1,0 +1,179 @@
+<div style="height: auto; width:auto; background:  yellow; text-align: center;">
+  <p style="font-weight: bolder;font-size: 20px;"> home - view  </p>
+  <!-- get property -->
+  <p>Hello {{name}};</p>
+  <!-- return value of method -->
+  <p>Hello {{getName()}}</p>
+  <p>input: </p>
+  <!-- way 1: -->
+  <input id="{{valueInput}}" type="text" bind-disabled="checkValue" value="long"/>
+  <!-- way 2: -->
+  <br/>
+  <input [id]="valueInput" type="text" [disabled]="checkValue" value="long"/>
+  <!-- su dung bind-attribute -->
+  <br/>
+  <p>class css: </p>
+  <!-- way 1: -->
+  <h2 [class]="classStype">get name property name class</h2>
+  <!-- way 2: -->
+  <h2 [class.text-success]="checkCss">check true get name class</h2>
+  <!-- way 3: -->
+  <h2 [ngClass]="classes"> check properties is true in object class</h2>
+  <p> stype css: </p>
+  <!-- way 1: -->
+  <h2 [style.color]="checkStyle ? valueStyleRed : valueStyleBlue "> check style attribute</h2>
+  <!-- way 2: -->
+  <h2 [style.color]="valueStyleRed"> get style attribute by property</h2>
+  <!-- way 3: -->
+  <h2 [ngStyle]="styles"> get properties in object </h2>
+  <!-- event -->
+  <button (click)="setData()">data binding</button>
+  <br/>
+  <h2> {{dataValue}}</h2>
+  <!-- event with event  -->
+  <button (click)="checkEvent($event)">click value </button>
+  <br/>
+  <h2>value event: {{dataEvent}}</h2>
+
+  <!-- event input with id  -->
+  <input #myInput type="text"/>
+  <br/>
+  <button (click)="getValueInput(myInput.value)">click input</button>
+  <br/>
+  <!-- two-way binding (FormsModule) -->
+  <input type="text" [(ngModel)]="nameBind">
+  {{nameBind}}: text
+  <br/>
+  <!-- dk : if else with angular  -->
+  <h1 *ngIf="nameBind !=null && nameBind != ''; then dk1; else dk2"></h1>
+
+  <!-- create template -->
+  <!-- template use in dk if -->
+  <ng-template #dk1>
+    <h1>nameBind is not null</h1>
+  </ng-template>
+  <ng-template #dk2>
+    <h1> nameBind is null</h1>
+  </ng-template>
+  <br/>
+  <!-- dk: ngswitch -->
+  <span [ngSwitch]="valueSwitch">
+  <p *ngSwitchCase="'2'">
+      value valueSwitch: 2
+  </p>
+  <p *ngSwitchCase="'1'">
+      value valueSwitch: 1
+  </p>
+  <p *ngSwitchDefault>
+      value orther: {{valueSwitch}}
+  </p>
+  </span>
+  <!-- ngFor and index  -->
+  <br/>
+  <h2> value color:</h2>
+  <div *ngFor="let color of colors; index as id">
+    <h1>id: {{id}}+ value: {{color}}</h1>
+  </div>
+</div>
+<div style="float: left;">
+  <!-- component child -->
+  <!-- input (from parent to child) -->
+component main: 
+<app-main [valueReceive]="valueSend"></app-main>
+<br/>
+  <!-- output (from child to parent through event) -->
+component detail:
+  <app-detail (valueChild)=receive($event)></app-detail>
+<br/>
+<p>data from child to parent: name: {{child.name}}, age: {{child.age}} </p>
+<!-- pipe in angular use for string, number, object  -->
+<!-- string  -->
+<h1> {{name | titlecase}}</h1> <!-- upper case chu cai dau -->
+<h1> {{name | slice:1:3}}</h1>  <!-- slice from 1 to 3 -->
+<!-- object -->
+<h1> {{dataEvent | json}}</h1>  <!-- format object to json -->
+<h1> {{0.25 | percent}}</h1> <!-- % -->
+<h1> {{25000 | currency: 'VND'}}</h1> <!-- currency -->
+<!-- date  -->
+<h1> {{dataDate | date:'h:mm a dd/MM/yyyy'}}</h1> <!-- Formant date -->
+<!-- number -->
+<h1> {{123.126 | number:'1.1-2'}}</h1> <!-- Formant number and round number -->
+show object employee:
+<br/>
+<h2>{{employee | json}}</h2>
+<h3> lst hero by service:</h3>
+<div *ngFor="let employee of lstEmployee; index as i">
+  <h1>employee: index:{{i}} - id:{{employee.id}} - name: {{employee.name}}</h1>
+</div>
+<h3> employee by service api: </h3>
+<h3> error: {{errorMessage}}</h3>
+user id: {{employeeValue.userId}}
+<br/>
+id: {{employeeValue.id}}
+<br/>
+title: {{employeeValue.title}}
+<br/>
+completed: {{employeeValue.completed}}
+
+<br/>
+<a routerLink="/main">main</a> và
+<a routerLink="/detail">detail</a> 
+
+<h3> list employee by service api: </h3>
+<div *ngFor="let employ of lstIEmployee; index as i">
+  <p (click)="onSelectValue(employ)">employee : index {{i}} - userId: {{employ.userId}} - id: {{employ.id}} 
+    - title: {{employ.title}} - completed: {{employ.completed}}
+  </p>
+</div>
+
+<!-- router view go here  -->
+<router-outlet></router-outlet>
+<br/>
+<b> list comment: </b>
+<ul *ngFor="let comment of lstComment">
+  <li> post id: {{comment.postId}}  
+    <br/>
+    - id: {{comment.id}}
+    <br/>
+    - name: {{comment.name}}
+    <br/>
+    - email: {{comment.email}}
+    <br/>
+    - body: {{comment.body}}
+  </li>
+</ul>
+<br/>
+<b>Detail user: </b>
+<br/>
+Id: {{user.id}}
+<br/>
+name: {{user.name}}
+<br/>
+email: {{user.email}}
+<br/>
+street: {{user.address.street}}
+<br/>
+suite: {{user.address.suite}}
+<br/>
+city: {{user.address.city}}
+<br/>
+zipcode: {{user.address.zipcode}}
+<br/>
+lat: {{user.address.geo.lat}}
+<br/>
+lat: {{user.address.geo.lng}}
+<br/>
+phone: {{user.phone}}
+<br/>
+website: {{user.website}}
+<br/>
+name: {{user.company.name}}
+<br/>
+catchPhrase: {{user.company.catchPhrase}}
+<br/>
+bs: {{user.company.bs}}
+<br/>
+<b>get json:</b>
+<br/>
+<b style="color: blue;">{{user | json}}</b>
+</div>

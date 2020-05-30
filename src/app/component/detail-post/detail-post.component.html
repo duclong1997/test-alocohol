@@ -1,0 +1,39 @@
+<div class="row">
+    <!-- detail poster  -->
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8" style="margin: 20px; border:  1px gray solid;">
+        <div class="row" style="padding: 10px;">
+            <div class="col-12 col-sm-2 col-md-2 col-lg-2" style="height: 200px; background-color: greenyellow; margin: 5px; line-height: 200px; text-align: center;">
+                User id: {{detailPoster.userId}}
+            </div>
+            <div class="col-12 col-sm-9 col-md-9 col-lg-9">
+                title: {{detailPoster.title}}
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                body: {{detailPoster.body}}
+            </div>
+        </div>
+
+        <!-- comment  -->
+        <div class="row" style="margin: 5px; border: 1px red solid; padding: 5px;">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12" *ngFor="let item of commentList">
+                <div class="row">
+                    <div class="col-12 col-sm-2 col-md-2 col-lg-2" style="height: 50px; background-color: greenyellow; margin: 5px; line-height: 50px; text-align: center;">
+                        id: {{item.id}}
+                    </div>
+                    <div class="col-12 col-sm-9 col-md-9 col-lg-9">
+                        <b>Name:</b> {{item.name}}
+                        <br/>
+                        <b>email:</b> {{item.email}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        body: {{item.body}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

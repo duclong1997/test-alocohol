@@ -1,0 +1,26 @@
+
+
+.main-content{
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    color: #3e444a;
+}
+.new-img{
+    width: 20%;
+    height: auto;
+    float: left;
+}
+.new-news{
+    width: 70%;
+    height: auto;
+    float: left;
+    padding: 10px 0px 0px 15px;
+}
+.right-content{
+    margin-top: 10px;
+    height: auto;
+    width: 100%;
+    padding: 10px;
+    background: white;
+}

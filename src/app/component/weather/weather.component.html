@@ -1,0 +1,57 @@
+<div style="float: left; width: 100%; background-color: #3e444a; padding: 10px;" >
+<p> daily weather forecast: {{weatherForecast.data.length}}</p>
+<div *ngFor="let forecast of weatherForecast.data" class="three-day-panel three-day-forecast full-mobile-width ">
+    <a class="panel panel-fade-in card current " class="index-weather">
+        <div class="day-panel">
+            <p class="module-header"> description: {{forecast.weather.description}}</p>
+            <p class="module-header sub date">time:{{forecast.ob_time | date:'HH:mm a'}}</p>
+            <span [ngSwitch]="forecast.weather.icon">
+                <p *ngSwitchCase="'t01d'">
+                    <img src="assets/image/icon/t01d.png" height="128px" width="128px" class="weather-icon icon">
+                </p>
+                <p *ngSwitchCase="'t02d'">
+                    <img src="assets/image/icon/t02d.png" height="128px" width="128px" class="weather-icon icon">
+                </p>
+                <p *ngSwitchCase="'t03d'">
+                    <img src="assets/image/icon/t03d.png" height="128px" width="128px" class="weather-icon icon">
+                </p>
+                <p *ngSwitchCase="'t04d'">
+                    <img src="assets/image/t04d.png" height="128px" width="128px" class="weather-icon icon">
+                </p>
+                <p *ngSwitchCase="'c04d'">
+                    <img src="assets/image/icon/t04d.png" height="128px" width="128px" class="weather-icon icon">
+                </p>
+                <p *ngSwitchCase="'r01d'">
+                    <img src="assets/image/icon/t04d.png" height="128px" width="128px" class="weather-icon icon">
+                </p>
+                <p *ngSwitchDefault>
+                    <img src="assets/image/icon/t04d.png" height="128px" width="128px" class="weather-icon icon">    
+                </p>
+            </span>
+            <div class="temp">
+                <span class="high"> 
+                    {{forecast.temp}} <sup>o</sup>
+                </span>
+                <span class="low">
+                    C
+                </span>
+                <div class="real-feel">
+                    Pressure: {{forecast.pres}} mb
+                    <br/>
+                    Relative humidity: {{forecast.rh}} %
+                </div>
+                <div class="cond">
+                    wind speed: {{forecast.wind_spd}} m/s
+                    <br/>
+                    wind direction: {{forecast.wind_cdir_full}}
+                </div>
+                <div class="cond">
+                    city: {{forecast.city_name}} 
+                    <br/>
+                    Visibility : {{forecast.vis}} km
+                </div>
+            </div>
+        </div>   
+    </a>
+</div>
+</div>

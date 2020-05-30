@@ -1,0 +1,37 @@
+<div class="row" >
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+        <!-- profile user -->
+        <div class="row">
+            <div class="col">
+                <h3 style="font-size: 26px; color: #dacb46;"> {{userProfile.name | uppercase }}</h3>
+                <h5 style="font-size: 12px; ">
+                    Email: <a style="color: #46c3a9;"> {{userProfile.email}} </a>
+                </h5>
+                <h5 style="font-size: 12px;">
+                    Address: <a style="color: #46c3a9;">{{userProfile.address.street}}, {{userProfile.address.suite}}, 
+                    {{userProfile.address.city}}</a>
+                </h5>
+                <h5 style="font-size: 12px;">Phone: {{userProfile.phone}}</h5>
+            </div>
+        </div>
+        <!-- todo -->
+        <div class="row">
+            <div class="col">
+                    <fieldset class="border border-secondary" style="border: 2px solid black; padding: 5px; font-size: 20px;">
+                        <legend class="w-auto" style="margin-left: 10px;  font-size: 26px; color: #dacb46;">
+                            Todo of user: </legend>
+                        <h5 >Tittle: {{todoDetail.title}}</h5>
+                        <h5>
+                            Status: 
+                            <ng-container *ngIf="todoDetail.completed; else elseTemplate">
+                                <label style="color: #28a745;"> Success</label>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                <label style="color: #dc3545;"> False</label>
+                            </ng-template>
+                        </h5>
+                    </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
