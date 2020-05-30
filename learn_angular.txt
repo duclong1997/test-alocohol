@@ -1,0 +1,162 @@
+clean cache : npm cache clean -f
+check version node: node -v
+check version nom : npm -v
+create new angular: ng new <nameproject>
+open project: ng serve --open.
+xem version in angular : ng --version.
+upgrade angular: ng update @angular/cli @angular/core
+
+tạo 1 ứng dụng : ng new <nameproject> --routing : dùng để phân trang và thêm các đường dẫn
+upgrade version: ng update @angular/cli @angular/core
+xem version hiện tại:ng --version.
+run project: ng serve --open./ ng serve -o
+tạo 1 component : ng generate component <namecomponent>
+tạo 1 service: ng generate service <nameservice>
+cài type timestamp in angular: npm i -D @angular-builders/timestamp
+sử dụng in-memory web api  thì sẽ không cần set up a server về HttpClient: npm install angular-in-memory-web-api --save
+ 
+angular là được xây dựng trên những khối xây dựng cơ bản gọi là component
+chúng chịu trách nhiệm show dữ liệu, lắng nghe sự kiện từ người dụng.
+
+trong component của angular có 3 file chính:
+component.ts :là component class code, được viết bằng typescript.
+component.html: là component template, được viết = html chịu trách nhiệm show giao diện người dùng.
+component.css: là component css, trang trí cho html ( mình sử dụng: scss).
+
+Trong angular sẽ có 4 thành phần chính để cho angular hoạt động:
+-component: chịu trách nhiệm xử lý các dữ tiệu của service sau đó hiển thị lên màn hình.
+- service: lấy data từ các api từ phía server.
+- model: là các class entity chịu trách nhiệm map các giá trị từ các json của api.
+- app-routing.module.ts: chịu trách nhiệm tạo ra các URL cho các coponent.
+
+Khi gọi 1 function : 
+   nameFunction(nameParameter:type){
+	// khai báo biến trong function sử dụng let or const
+	// code here
+	// chỗ này cũng có thể return value.
+   }
+
+src.styles.scss: css chung cho các component.
+
+muốn sử dụng edit property (input): 
+-<input  [(ngModel)]="nameproperty.value">text</input>
+- thêm import { FormsModule } from '@angular/forms'; trong file app.module.ts
+
+muốn gọi 1 list element:
+- *ngFor="let item of listtems"
+
+event của các thẻ: cú pháp (name event)="method()"
+
+create method trong file name.component.ts:
+- namemthod(): value-reture{
+// code here
+}
+(valuereturn: giá trị trả về của method)
+
+condition in angular: *ngif="DK"
+
+Truyền value from other component (app-heros) to this component(app-hero-detail):
+- <app-hero-detail [inputHero]="heroDetail"></app-hero-detail> ( inputHero: là giá trị sẽ nhân value từ 'heroDetail').
+- import { Component, OnInit, Input} from '@angular/core'; trong file hero-detail,component.ts
+- thêm @Input() inputHero: Hero; (inputHero là giá trị được nhận từ component 'app-heros')
+
+cách sử dụng service:
+- khởi tạo 1 service: ng generate service <nameservice>
+- tạo các method xử lý lấy dữ liệu (get data in http)
+- gọi service trong các component.
+- khởi tạo service vd: constructor(private heroService: HeroService) { }
+- tạo 1 method truyền value từ service lên component vd: 
+  getHero(): void{
+    this.heros =this.heroService.getHero();
+  }
+- gọi method trong hàm: (mục đích là gọi các method khi component được khởi tạo.)
+  ngOnInit() {
+    this.getHero();
+  }
+
+constructor: dùng để khởi tạo các contructor vd: service, component, ....
+
+ngOnInit: dùng để gọi xử lý các method khi đươc khởi tạo.
+
+sử dụng Observable để angular sẽ phải wait data từ phía server trả về,
+và trình duyệt sẽ không bị chết trong lúc đợi server trả về.
+Đây là phương thức lấy dữ liệu rất hữu hiệu từ phía server.
+- import :import { Observable, of } from 'rxjs'; trong service.
+- gọi 1 method sử dung Observable vd: 
+  getHeroes(): Observable<Hero[]> {
+  	return of(HEROES);
+  }
+- convert dữ liệu từ Observable<Hero[]> -> Hero[]:
+  getHeroes(): void {
+  	this.heroService.getHeroes()
+      	.subscribe(listHero => this.heroes = listHero);
+  }
+(với this.heroes là 1 parametor đã được khai báo)
+
+constructor(public messageService: MessageService) {}
+constructor(private messageService: MessageService) {}
++ Khi khai báo private nghĩa là messageService sẽ không được thực thi trên file component.html
+muốn thực thi trên html thì sẽ phải khởi tạo parameter sau đó truyền dữ liệu vào parameter đó.
++ Khi khai báo public thì messageService có thể được gọi một cách trực tiếp trên component.html
+các method, các parametor ở service có thể gọi được trực tiếp trên component.html
+
+route: url của các component được sử dụng để điều hướng trong angular.
+- sử dụng <router-outlet> : điều hướng các component sẽ được display như thế nào.
+(vùng này sẽ là nơi show component theo route)
+- trong file app-routing.model.ts thêm:
+ {path:'hero' , component:HerosComponent} dùng để khai báo 1 route có path ( url : hero) của component (HerosComponent)
+trong const routes: Routes = []; (quản lý các route.)
+- muốn sửa dụng các route: <a routerLink="/namepath"> url route</a>
+
+truyền pathvariable:
+- {path:'herodetail/:id', component:HeroDetailComponent},( id: pathvariable)
+- link route:  <a routerLink="/herodetail/{{item.id}}" >here</a> ( {{item.id}}: value
+- import { ActivatedRoute } from '@angular/router'; (khai báo thư viện để lấy giá trị của pathvariable.
+- khai báo trong contructor.
+- const value= this.route.snapshot.paramMap.get('namePathvariable'); (lấy thông tin pathvariable của url.
+- const id = +this.route.snapshot.paramMap.get('id'); ( convert string to number).
+
+Xử lý với api:
+- Sử dụng api với Observable để có time wait from server.
+- vd api: http://dummy.restapiexample.com/api/v1/employees
+- khai báo và import: [HttpClientModule] trong app.module.ts (import { EmployService } from './service/employ.service';)
+- tạo 1 entity có tác parameter thoả mãn api.
+- tạo 1 service để gọi và xử lý api
+- khai báo constructor(private http: HttpClient) { } trong service.
+- nếu api đó cần 1 or multi header:  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'my-auth-token'
+    })
+  };
+- viết method gọi api.
+- tạo 1 component
+- khai báo constructor(private positionService :PositionService) { } trong component.
+- truyền parameter lên html.
+
+view, check object trong angular dưới dạng json.
+ {{nameObject | json}}
+
+xử lý form:
++cách 1:
+- tạo 1 class entity chứa các parameter tương ứng của form.
+- gọi 1 paramenter khai báo class đó trong component.
+- Thêm [(ngModel)]="nameObject.nameParameter" name="nameParameter" vào 1 trong các loại input, select.
+
++cách 2: sử dụng reactive forms validation.
+
+cài đặt bootstrap jquery poper.js trong angular:
++ sử dụng cli: npm install bootstrap jquery popper.js --save
+
++ thêm trong file angular.json:
+ "styles": [
+     "src/styles.css",
+     "node_modules/bootstrap/dist/css/bootstrap.min.css"
+ ],
+ "scripts": [
+     "node_modules/jquery/dist/jquery.min.js",
+     "node_modules/popper.js/dist/umd/popper.min.js",
+     "node_modules/bootstrap/dist/js/bootstrap.min.js"
+ ]
+
+cách debug trong angular: debugger
