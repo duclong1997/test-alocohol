@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+                <img [src]="detailPhoto.thumbnailUrl" alt="avatar" class="rounded float-left"/>
+            </div>
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8" style="padding-left: 30px;">
+                <h4>
+                    {{detailPhoto.title}} 
+                </h4>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#view">
+                    View Img
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="view" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog " role="document">
+                        <div class="modal-content" style="width: 650px; text-align: center;">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Avatar</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+                            <img [src]="detailPhoto.url" alt="avatar large">
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- from component aprent to child  -->
+<app-list-album-photo [idAlbum]="idAlbum"></app-list-album-photo>

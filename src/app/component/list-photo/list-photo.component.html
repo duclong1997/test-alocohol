@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row" style="margin-top: 5px;">
+            <div class="col">
+                <div class="alert alert-dark" role="alert" style="text-align: center;">
+                    <h2>List of active</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="row" *ngFor="let item of lstPhoto"style="margin-top:10px">
+                        <div class="col-12 col-sm-12 col-md-2 col-lg-2" >
+                            <a routerLink="/detail-photo/{{item.id}}/{{item.albumId}}">
+                                <img [src]="item.thumbnailUrl"  class="rounded float-left" alt="img photo">
+                            </a> 
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-8 col-lg-8" style="padding-left: 30px;">
+                            <a style="font-size: 16px;">{{item.title}}</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

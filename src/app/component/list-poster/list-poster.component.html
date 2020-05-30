@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8" *ngFor="let item of posters" >
+        <div class="row">
+            <div class="col-2 col-sm-2 col-dm-2 col-lg-2" style="height: 100px; background-color: yellow;line-height: 100px; margin: 5px;">
+                <a routerLink="/detail/{{item.id}}"> 
+                    number Poster: {{item.id}}
+                </a>
+            </div>
+
+            <div class="col-9 col-sm-9 col-md-9 col-lg-9" style="line-height: auto;">
+                Title: {{item.title}}
+                <br/>
+                Body: {{item.body}}
+            </div>
+        </div>
+    </div>
+</div>
