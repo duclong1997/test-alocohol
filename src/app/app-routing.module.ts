@@ -1,3 +1,4 @@
+import { Path } from './utils/path';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailComponent } from './component/detail/detail.component';
@@ -22,7 +23,11 @@ import { CoronaDetailCoutryComponent } from './component/corona-detail-coutry/co
 import { ChartCoronaComponent } from './component/chart-corona/chart-corona.component';
 
 const routes: Routes = [
-  // chart corona
+  
+  // add module with path /hotel from module hotel (lazy load)
+  {path: "hotel", loadChildren:() => import("./hotel/hotel.module").then((result => result.HotelModule},
+  
+    // chart corona
   {path:'corona-chart',component: ChartCoronaComponent},
   // country detail corona
   {path:'corona-country-detail/:name', component: CoronaDetailCoutryComponent},
@@ -70,7 +75,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {    
+    // cho phép reload những module có thể load về được trước
+    preloadingStrategy: preloadingAllModules})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

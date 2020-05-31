@@ -160,3 +160,25 @@ cài đặt bootstrap jquery poper.js trong angular:
  ]
 
 cách debug trong angular: debugger
+
+có thể tạo ra module chứa nhiều component. service, routing nhằm mục đích cho dễ quản lí 1 module, một ,màn hình hoặc 1 cụm màn hình nào đó
+cách tạo module và routing : ng g m <tên-module> --routing
+bên trong module đó vẫn có thể tạo component:
+ng g c <tên-module>/<tên-component>
+bên trong file: app-routing.module.ts thì khai báo module
+ví dụ:
+{path: "hotel", loadChildren:() => import("./hotel/hotel.module").then((result => result.HotelModule},
+trong Routes
+
+và các path con thì sẽ được khai báo trong <tên-module>-routing.module.ts
+
+mục đích của việc chia module giúp giảm thời gian tải trang khi có quá nhiều module cần load 1 lúc
+sẽ dẫn đến khi nào gọi đến module nào thì module đó được load
+ngoài ra:
+có thể thêm {preloadingStrategy: preloadingAllModules}  trong file app-routing.module.ts phần import
+mục đích:
+giúp app có thể load được những module nhẹ, sớm khi các module đó chưa cần thiết gọi đến.
+
+trong service đối với providedIn
+nếu: root thì sẽ được khởi tạo duy nhất 1 lần dùng cho toàn app
+nếu: any thì mới mỗi 1 module thì sẽ được khởi tạo 1 instance chi module đó.
