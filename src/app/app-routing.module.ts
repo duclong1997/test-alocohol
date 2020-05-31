@@ -1,4 +1,3 @@
-import { Path } from './utils/path';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailComponent } from './component/detail/detail.component';
