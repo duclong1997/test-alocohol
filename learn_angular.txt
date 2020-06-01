@@ -182,3 +182,20 @@ giúp app có thể load được những module nhẹ, sớm khi các module đ
 trong service đối với providedIn
 nếu: root thì sẽ được khởi tạo duy nhất 1 lần dùng cho toàn app
 nếu: any thì mới mỗi 1 module thì sẽ được khởi tạo 1 instance chi module đó.
+
+các bước tạo 1 module mới:
+b1: ng g m <tên-module> --routing
+b2: thêm path trong app-routing: 
+ví dụ:
+path:'', 
+component:<tên-component>, 
+canActivate:[<tên-hàm-bảo vệ>],
+loadChildren:()=> import('<tên-đường-dẫn-module>').then((m)=> m.<tên-module>
+Chú ý:
+với component:<tên-component> thì tên-component đó sẽ đại diện cho 1 component có <router-outlet></router-outlet> trong file html
+với canActivate dùng để check token có còn thời hạn hiệu lực không
+
+b3: trong module của mình sẽ bổ sung các module cần thiết ở import 
+trong declarations: nhằm chỉ ra các component, pipe, directive được định nghĩa trong module này (bắt buồn liệt kê toàn bộ)
+trong providers: dùng để khai báo các class có @Injectable() (service: được sử dụng trong module này )
+đối với các state và facade thì mình sẽ thêm @Injectable() trên class
