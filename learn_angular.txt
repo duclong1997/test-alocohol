@@ -199,3 +199,29 @@ b3: trong module của mình sẽ bổ sung các module cần thiết ở import
 trong declarations: nhằm chỉ ra các component, pipe, directive được định nghĩa trong module này (bắt buồn liệt kê toàn bộ)
 trong providers: dùng để khai báo các class có @Injectable() (service: được sử dụng trong module này )
 đối với các state và facade thì mình sẽ thêm @Injectable() trên class
+
+resolver:
+tác dụng:
+được sử dụng để router sẽ đợi cho đến khi data được trả về trước khi route được kích hoạt (trước khi màn hình được hiển thị)
+bước 1: tạo 1 file name.resolver.ts
+bước 2: file sẽ implements Resolve<Obect> ( object: là đối tượng sẽ nhận response trả về từ server)
+bước 3: truyền id vào api = route.paramMap.get('id');
+với route: ActivatedRouteSnapshot
+bên trong file sẽ thực hiện gọi api và return về observable, ngoài ra sẽ thực hiện xử lý check error ở đây thông qua catchError và chuyển hướng trang thông qua (Router).
+bước 3: trong file routing sẽ bổ sung thêm resolve vào path mà mình muốn
+ví dụ:
+{
+path:'list',
+component: file-component,
+resolve:{name-list: file-resolver}
+}
+bước 4: bố sung thêm  file resolver của provider trong file module.
+bước 5: gọi ActivatedRoute trong constructor của component.
+bước 6: gọi resolve trong component
+ví dụ:
+cách 1:
+this.value = this.router.snapshot.data['name-list']; => không cần subscribe
+cách 2:
+this.router.data.subscribe( (data) =>{ this.value = data; });
+
+với router: ActivatedRoute được khai báo trên constructor.
