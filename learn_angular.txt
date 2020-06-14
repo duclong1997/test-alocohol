@@ -1,4 +1,4 @@
-clean cache : npm cache clean -f
+﻿clean cache : npm cache clean -f
 check version node: node -v
 check version nom : npm -v
 create new angular: ng new <nameproject>
@@ -225,3 +225,16 @@ cách 2:
 this.router.data.subscribe( (data) =>{ this.value = data; });
 
 với router: ActivatedRoute được khai báo trên constructor.
+
+@input, @putput:
+mục đích:
+truyền dữ liệu qua lại giữa component cha và component con
+input: truyền dữ liệu của cha cho con
+output: truyền dữ liệu của con cho cha (qua event)
+cách dụng
+với input:
+<name-component-con [property-con]="property-cha"></name-component-con>
+với ouput:
+<name-component-con (function-con)="function-cha"></name-component-con>
+chú ý:
+với output thì sẽ sử dụng EventEmitted<kieu-du-lieu>();
