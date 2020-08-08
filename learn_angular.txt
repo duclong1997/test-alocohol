@@ -207,7 +207,8 @@ bước 1: tạo 1 file name.resolver.ts
 bước 2: file sẽ implements Resolve<Obect> ( object: là đối tượng sẽ nhận response trả về từ server)
 bước 3: truyền id vào api = route.paramMap.get('id');
 với route: ActivatedRouteSnapshot
-bên trong file sẽ thực hiện gọi api và return về observable, ngoài ra sẽ thực hiện xử lý check error ở đây thông qua catchError và chuyển hướng trang thông qua (Router).
+bên trong file sẽ thực hiện gọi api và return về observable, ngoài ra sẽ thực hiện xử lý check error ở đây thông qua catchError 
+và chuyển hướng trang thông qua (Router).
 bước 3: trong file routing sẽ bổ sung thêm resolve vào path mà mình muốn
 ví dụ:
 {
@@ -220,7 +221,8 @@ bước 5: gọi ActivatedRoute trong constructor của component.
 bước 6: gọi resolve trong component
 ví dụ:
 cách 1:
-this.value = this.router.snapshot.data['name-list']; => không cần subscribe
+this.value = this.router.snapshot.data['name-list']; or this.router.snapshot.data.name-list;=> không cần subscribe (cách này không nên dùng do không có sự cập nhật lại
+khi có sự thay đổi từ router)
 cách 2:
 this.router.data.subscribe( (data) =>{ this.value = data; });
 
@@ -238,3 +240,4 @@ với ouput:
 <name-component-con (function-con)="function-cha"></name-component-con>
 chú ý:
 với output thì sẽ sử dụng EventEmitted<kieu-du-lieu>();
+
