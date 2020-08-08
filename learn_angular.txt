@@ -573,3 +573,20 @@ https://github.com/aFarkas/lazysizes
 
 lưu ý:
 tránh sử dụng lazy loading với những ảnh trong khung nhìn đầu tiên.
+
+cách thực hiện clone file:
+function cloneFile(file: File): Observable<File>{
+ if(!(file&& file instanceof File)){
+  return of(null); 
+ }
+ const reader = new FileReader();
+ const stream$ = fromEvent(reader, 'loadend');
+ return stream$.pipe(
+  map(() =>{
+   const blob = new Blob([reader.result]);
+   return new File([blob], file.name, {
+    lastModified: file.lastModified
+   });
+  })
+ );
+}
