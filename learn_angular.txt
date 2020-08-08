@@ -1,7 +1,7 @@
 ﻿clean cache : npm cache clean -f
 check version node: node -v
 check version nom : npm -v
-create new angular: ng new <nameproject>
+create new angular: ng new <nameproject> --routing
 open project: ng serve --open.
 xem version in angular : ng --version.
 upgrade angular: ng update @angular/cli @angular/core
@@ -14,7 +14,7 @@ tạo 1 component : ng generate component <namecomponent>
 tạo 1 service: ng generate service <nameservice>
 cài type timestamp in angular: npm i -D @angular-builders/timestamp
 sử dụng in-memory web api  thì sẽ không cần set up a server về HttpClient: npm install angular-in-memory-web-api --save
- 
+
 angular là được xây dựng trên những khối xây dựng cơ bản gọi là component
 chúng chịu trách nhiệm show dữ liệu, lắng nghe sự kiện từ người dụng.
 
@@ -29,7 +29,7 @@ Trong angular sẽ có 4 thành phần chính để cho angular hoạt động:
 - model: là các class entity chịu trách nhiệm map các giá trị từ các json của api.
 - app-routing.module.ts: chịu trách nhiệm tạo ra các URL cho các coponent.
 
-Khi gọi 1 function : 
+Khi gọi 1 function :
    nameFunction(nameParameter:type){
 	// khai báo biến trong function sử dụng let or const
 	// code here
@@ -38,7 +38,7 @@ Khi gọi 1 function :
 
 src.styles.scss: css chung cho các component.
 
-muốn sử dụng edit property (input): 
+muốn sử dụng edit property (input):
 -<input  [(ngModel)]="nameproperty.value">text</input>
 - thêm import { FormsModule } from '@angular/forms'; trong file app.module.ts
 
@@ -65,7 +65,7 @@ cách sử dụng service:
 - tạo các method xử lý lấy dữ liệu (get data in http)
 - gọi service trong các component.
 - khởi tạo service vd: constructor(private heroService: HeroService) { }
-- tạo 1 method truyền value từ service lên component vd: 
+- tạo 1 method truyền value từ service lên component vd:
   getHero(): void{
     this.heros =this.heroService.getHero();
   }
@@ -82,7 +82,7 @@ sử dụng Observable để angular sẽ phải wait data từ phía server tr�
 và trình duyệt sẽ không bị chết trong lúc đợi server trả về.
 Đây là phương thức lấy dữ liệu rất hữu hiệu từ phía server.
 - import :import { Observable, of } from 'rxjs'; trong service.
-- gọi 1 method sử dung Observable vd: 
+- gọi 1 method sử dung Observable vd:
   getHeroes(): Observable<Hero[]> {
   	return of(HEROES);
   }
@@ -185,17 +185,17 @@ nếu: any thì mới mỗi 1 module thì sẽ được khởi tạo 1 instance 
 
 các bước tạo 1 module mới:
 b1: ng g m <tên-module> --routing
-b2: thêm path trong app-routing: 
+b2: thêm path trong app-routing:
 ví dụ:
-path:'', 
-component:<tên-component>, 
+path:'',
+component:<tên-component>,
 canActivate:[<tên-hàm-bảo vệ>],
 loadChildren:()=> import('<tên-đường-dẫn-module>').then((m)=> m.<tên-module>
 Chú ý:
 với component:<tên-component> thì tên-component đó sẽ đại diện cho 1 component có <router-outlet></router-outlet> trong file html
 với canActivate dùng để check token có còn thời hạn hiệu lực không
 
-b3: trong module của mình sẽ bổ sung các module cần thiết ở import 
+b3: trong module của mình sẽ bổ sung các module cần thiết ở import
 trong declarations: nhằm chỉ ra các component, pipe, directive được định nghĩa trong module này (bắt buồn liệt kê toàn bộ)
 trong providers: dùng để khai báo các class có @Injectable() (service: được sử dụng trong module này )
 đối với các state và facade thì mình sẽ thêm @Injectable() trên class
@@ -207,7 +207,7 @@ bước 1: tạo 1 file name.resolver.ts
 bước 2: file sẽ implements Resolve<Obect> ( object: là đối tượng sẽ nhận response trả về từ server)
 bước 3: truyền id vào api = route.paramMap.get('id');
 với route: ActivatedRouteSnapshot
-bên trong file sẽ thực hiện gọi api và return về observable, ngoài ra sẽ thực hiện xử lý check error ở đây thông qua catchError 
+bên trong file sẽ thực hiện gọi api và return về observable, ngoài ra sẽ thực hiện xử lý check error ở đây thông qua catchError
 và chuyển hướng trang thông qua (Router).
 bước 3: trong file routing sẽ bổ sung thêm resolve vào path mà mình muốn
 ví dụ:
@@ -241,3 +241,335 @@ với ouput:
 chú ý:
 với output thì sẽ sử dụng EventEmitted<kieu-du-lieu>();
 
+template variable:
+mục đích:
+được sử dụng để định dang 1 component hay 1 thẻ trên html
+cú pháp: #varnam
+để xác định với 1 component cụ thể: #varname="name-component"
+có thể tác động trực tiếp đến component đó thông qua #varname
+
+@ViewChild
+mục đích:
+được sử dụng để tác động đến component con của một component hoặc tác động đến 1 htmlElement
+cú pháp:
+@ViewChild('var-name',{static: true}) varname: Component; (component)
+@ViewChild('var-name', {static: true}) varname: ElementRef<HTMLDivElement> (htmlElement)
+
+form sử dụng:
+ViewChild(selector: string | Function | Type<any>, opts?: {
+  read?: any;
+  static?: boolean;
+})
+
+@ViewChildren
+mục đích:
+được sử dụng nếu trong component cha có nhiều cùng la 1 component con và bạn muốn tác động đến các component con đó.
+cú pháp:
+@ViewChildren('var-name') toggleList: QueryList<ToggleComponent>;
+
+ng-content:
+mục đích:
+được sử dụng khi muốn truyền một template vào trong 1 component con.
+cú pháp:
+trong component con
+<ng-content select="component-name"></ng-content>
+<ng-content select="html-tag"></ng-content>
+<ng-content select="[attr]"></ng-content>
+<ng-content select=".class-name"></ng-content>
+<ng-content select="component-name.class-name[attr]"></ng-content>
+default: get all
+<ng-content></ng-content>
+
+ng-template:
+mục đích: dùng để render lên UI khi có *ngif hoặc ngTemplateOutlet sử dụng.
+phần HTML trong ng-template không bao giờ hiển thị 1 cách trực tiếp ở nơi nó được định nghĩa.
+cách sử dụng:
+1- dùng với *ngif
+2- khi 1 phần UI element bị lặp lại nhiều lần trong chính component đó nhưng phần UI đó quá nhỏ để có thể tách ra thành 1 component.
+kết hợp sử dụng với template variable, ng-container, ngTemplateOutlet
+cos thể truyền ng-template vào component con thông qua @Input.
+khai báo @Input: @Input() name-template: TemplateRef<any>;
+
+ngTemplateOutlet
+mục đích: sử dụng để render ng-template lên UI
+cú pháp: [ngTemplateOutlet]="name-template"
+ngoài ra sử dụng [ngTemplateOutletContext]="{property-right:'value'}" dùng để truyền value và trong ng-template
+ví dụ:
+<ng-template let-property-left="property-right" #template>
+{{property-left}}
+</ng-template>
+<ng-container [ngTemplateOutlet]="temlate" [ngTemplateOutletContext]="{property-right='value'}"
+
+ng-container: là 1 custom html tag dùng để render trên UI, sẽ không có thêm những tag không liên quan tránh việc ảnh hưởng đến style
+nó sẽ chỉ render những thẻ bên trong template
+
+@Injectable vs @Inject:
+
+sử dụng Injectable với các kiểu dữ liệu tự định nghĩa -class mà chúng ta tạo ra
+sử dụng Inject với kiểu dữ liệu nguyện thuỷ(primitive) boolean, string, number để báo cho angular biết và chúng ta sẽ cần config provider tương ứng cho chúng
+hoặc muốn sử dụng một token khác cho tham số thay vì kiểu dữ liệu của nó
+
+ví dụ:
+@Inject('value-inject') value: string
+lúc này {provide: 'value-inject', useValue:'value of inject'}
+
+cách sử dụng:
+depency injection: được sử dụng trong 2 cấp độ: module và trong chính component/ directive.
+đối với cấp độ modele thì toàn bộ các thành phần bên trong NgModule sẽ sử dụng cùng 1 instance
+đối với cập độ component/ directive thì mỗi 1 component/ directive sẽ tạo ra 1 instance của riêng nó và 2 instance này khác nhau chúng sẽ chỉ được sử dụng trong chính nó.
+
+chúng ta có thể inject parentcomponent vào childcomponent và thực hiện hành động
+ví dụ:
+export class ChildCoponent{
+constructor(private parentComponent: ParentComponent){}
+}
+
+sử dụng lại component đã tồn tại trong application bằng cách sử dụng provider để override:
+  providers: [
+    {
+      provide: ExistedComponent,
+      useExisting: NewComponent,
+    }
+  ]
+export class NewComponent extends ExistedComponent{
+}
+
+các thành phần trong module:
+declarations: thành phần định nghĩa các component, directive, pipe trong module đó sử dụng
+imports: khai báo các module khác sẽ được sử dụng trong module này.
+providers: cung cấp các depency injection được sử dụng trong module này (service, facade, state)
+exports: chứa các thành phần mà được module này cho phép import (component, service, module, pipe, directive)
+
+provider:
+trong provider có userClass và useExisting
+useClass: thể hiện class đó sẽ được sử dụng với provide nào
+ví dụ:
+providers:[
+  {
+    privide: name,
+    userClass: ClassIsUsed,
+  }
+]
+useExisting: thể hiện là class đó sẽ sử dụng provider nào.
+providers:[
+  {
+    privide: name,
+    useExisting: ClassUse;
+  }
+]
+
+các giá trị trong proprovidedIn của service:
+root: nó sẽ là instance duy nhất cho cả application.
+platform: nó sẽ là instance duy nhát cho tát cả application trong 1 page
+any: nó sẽ tạo ra 1 instance với mỗi một childmodule sử dụng nó ( nó làm việc trên NgModule Injector và không làm việc trên element Injector)
+
+observable:
+được sử dụng để có thể tiến hành nhiều giá trị bất đông bộ về mặt kiến trúc nó được coi là các stream, các data sẽ được chảy qua các luồng xử lý
+để có thể biến đổi thành các dạng mà bạn mong muốn ở điểm cuối của stream
+để thực thi một observable (observable execution) thì ta sẽ phải invoke function bằng cách (subscribe)
+sau khi bạn invoke, và khi có 1 signal (next, error, complete) gửi đi thì những gì chúng ta cung cấp cho observable phía trên sẽ được gọi là tương
+tác lại tín hiệu
+có 3 kiểu observable gửi đi:
+next: gửi đi một giá trị.
+error: gửi đi một javascript lỗi, exception
+complete: không gửi đi giá trị nào, nhưng nó sẽ gửi đi tín hiệu để báo stream đã completed
+error và complete chỉ xảy ra duy nhất 1 lần (nếu có error thì không có complete nếu có complete thì không có error)
+observable.subcribe() sẽ chuyển hoá các callbacks thành observable object tương ứng , bạn có thể truyền vào các hàm rời rạc khác nhau nhưng cần truyền
+đúng thứ tự tương ứng.
+
+với:
+next -> value
+error -> err
+complete -> ()
+
+nếu bạn không muốn truyền error handler function, hãy truyền null/ undefined:
+observable.subcribe(
+  value =>{},
+  null,
+  ()=>{}
+)
+
+muốn thực hiện huỷ một observable excecution thì chúng ta sử dụng subscription có chứa method quan trọng là unsubscribe, khi method này được gọi,
+execution sẽ bị huỷ
+một subscription có thể chứa nhiều subscription con, băng cách subcription cha gọi method add để thêm các subscription con mà không phụ thuộc vào subcription cha.
+khi subscription cha unsubscribe thì các subscription con cũng bị unsubscribe.
+
+các operator:
+- of(): dùng để tạo ra 1 observable từ bất kì giá trị primitive, array, function, object,..
+chú ý với 1 subscribe thì sẽ trả ra 1 observable
+
+- from(): dùng để tạo ra observable từ interable hoặc promise
+với iterable: array, map, set, string
+với 1 subscribe sẽ trả ra 1 list các observable
+
+- defer(): nhận vào 1 observableFactory và sẽ trả về observable. defer() sẽ sử dụng observableFactory để tạo 1 observable mới cho mỗi subscriber
+lợi ích: chúng ta cần rety 1 observable nào đó mà cần so sánh với 1 giá trị random để quyết định xem có thực thi hay không.
+thì defer() kết hợp với retry là giải pháp cực kì hiệu quả.
+
+debounce và throttle
+cách sử dụng:
+được sử dụng với những sự kiện: resize, scroll, keyup, keydown hoặc những chức năng tìm kiếm văn bản mà kích hoạt sự kiện không
+giới hạn.làm giảm việc client truy vấn qua nhiều đến db, giảm tải công việc của server.
+-debounce: giống với các làm việc của thang máy(thang máy trung bình sẽ chờ 5s, khi có người đi đến, thang máy mở ra và kích hoạt thêm 5s
+chờ đến khi không còn ai đến và hết 5s thì thang máy sẽ đóng lại)
+-throttle giống với tàu điện ngầm hoặc xe buýt(nó không cần biết bao nhiêu người đến, chỉ quan tấm đến phút thứ 15 là tự động đóng lại)
+-pluck(): yêu cầu lấy ra những giá trị từ một property trong object.
+-reduce(): xử lí giá trị acc( giá trị cộng dôn) và giá trị curr (giá trị hiện tại) đến khi source complte thì nó sẽ trả ra giá trị cuối cùng
+- scan(): xử lí giá trị acc và giá trị curr nhưng sau mội 1 lần emit trả ra giá trị.
+-first(): sẽ emit giá trị đầu tiên của observable rồi complete
+chú ý: nếu observable tự complete trước giá trị empty/ of() mà không có giá trị nào thì throw EmptyError và được sử dụng với from.
+-last(): sẽ emit giá trị cuối cùng của observable rồi complete
+chú ý: nhận vào 2 giá trị predicate, defaultvalue
+sẽ throw Error nếu chỉ có predicate và khôgn có giá trị thoả mãn
+sẽ throw emptyError nếu observable tự complte.
+sẽ emit giá trị defaultvalue nếu có predicate, defaultvalue mà không có giá trị thoả mãn
+sử dụng với from.
+-find(): sẽ emit giá trị đầu tiên mà thoả mãn được điều kiện predicate (bắt buộc), nó sẽ không emit error (sẽ emit undifined) nếu như không có giá trị
+nào thoả mãn.
+-single(): sẽ giống giới first() nhưng sẽ throw error nếu có nhiều hơn 1 giá trị thoả mãn, sex không emit error (sẽ undifined) nếu không
+có giá trị thoả mãn.
+-take(): dùng để lấy số giá trị emit từ observable sử dụng với from.
+-takeUnit(): sẽ emit giá trị đến notifer được emit (nhận vào là 1 notifer: observable).
+-takeLast(): số phần tử từ giá trị cuối cùng.
+-skip(): dùng để bo qua n giá trị đầu không được emit
+-zip(): sẽ gom tất cả các giá trị được emit bởi children observable theo cấp
+ví dụ:
+combineLatest(of(1, 2, 3), of(4, 5, 6, 11), of(7, 8, 9)).subscribe(observer);
+output:[1, 4, 7], [2, 4, 7], [3, 6, 9]
+chú ý:
+zip sẽ complete khi 1 trong các children observable complte.
+zip sẽ throw nếu một trong các children throw error
+-race():sẽ emit giá trị của observable nào emit đầu tiên( nhanh nhất)và sẽ lại đi lặp lại cho đến 1 trong các children observable complete.
+-merge(): không quan tâm đến thứ tự của các children oberservable emit không bị giới hạn bởi việc các observable con phải complete thì
+observable kế tiếp được subscribe.
+chú ý:
+emit bất cứ observable nào emit
+throw nếu 1 trong children observables throw error.
+complete khi tất cả children observable complete
+-concat(): sẽ hoạt động tương tự cho lần lượt từng children observables cho đến khi không còn observable nào thì concat sẽ compelete
+- retry(): sẽ resubcribe vào source observable  khi có error emit từ source, cần truyền tham số để thể hiện số lần được retry nếu
+không sẽ retry không giới hạn
+ngoài ra chúng ta có retryWhen để có thể control vào quá trình retry (khi nào retry)
+-every(): sẽ trả về true nếu tất cả các emit value đêu thoả mãn predicate.
+-iff(): cho phép lựa chọn observable tương ứng với hàm điều kiện khi thực hiện subscribe.
+ví dụ: iff(() => predicate, of(trueresult), of(falseresult))
+-groupBy(): được sử dụng để nhóm các observable thành một mảng theo key (chúng ta chọn property). sử dụng groupby sẽ trả về nhiều mảng
+chứa nhiều observable theo key.
+-switchMap(), concatMap(), mergeMap(), exhaustMap(): một trong những HOOs (higher Order Operators) dùng để gộp các obserbale thành một
+observable
+-finalize(): sẽ nhận vào 1 callback, callback này sẽ thực thi obserable khi complete/ error
+ví dụ: được sử dụng stop loader/spinner khi request API được thực hiện xong, cho dù lỗi hay không lỗi.
+
+với pipe, cần có đuôi là subscribe ở component để thực thi gọi api
+- pipe: nhằm mục đích lọc các thành phần, giá trị để đến giá trị cuối cùng cho subscribe.
+- tap: mục đích là sử dụng không return
+- flatMap: mục đích chuyển đổi observable thành 1 observable khác ( có return)
+chú ý với flatMap: khi return value cần of(value)
+- catchError trả ra lỗi trong pipe
+- filter: dùng để lọc các điều kiện
+- mergeMap: thực hiện merge các giá trị nhưng các stream sẽ chạy đồng thời (flatMap là tên gọi khác của mergeMap)
+- concatMap: cho phép 1 stream chạy trong 1 thời điểm( phải đợi stream trước complete thì stream sau mới được chạy tiếp)
+- switchMap: chỉ cho phép 1 stream chạy, nếu stream trước chưa complete thì sẽ bị unsubscribe.
+- exhaustMap: stream sau sẽ bị bỏ qua nếu stream trước chưa hoàn thành
+- khi thực hiện flapMap return ra value thì value đó sẽ là value tiếp theo được thực hiện ở hàm dưới và cuối cùng là subcribe.
+- trong pipe giá trị trả về sẽ bị biến đổi theo thứ tự từ trên xuống (nếu qua flapMap, switchMap,..) các hàm return, sau cùng sẽ
+trả về cho hàm subcribe()
+-reduce: là hàm lấy ra 1 giá trị mong muốn được thực thi tường phần tử ( từ trái -> phải) 1 array ( có thể tổng các phần tử, min, max)
+-map: là hàm biến đổi tất cả các giá trị theo 1 điều kiện được chỉ định và sau đó sẽ return là object mong muốn.
+cú pháp: reduce(giá trị tích luỹ, giá trị hiện tại của mảng =>{body});
+với body:
+là nơi thích hiện logic và trả về giá trị mới cho giá trị tích luỹ
+ví dụ:
+giá trị tích luỹ + giá trị hiện tại
+giá trị tích luỹ < giá trị hiện tại ? giá trị hiện tại : giá trị tích luỹ
+
+- đối với những param có thể không cần thiết, thêm '?' sau param đó
+ví dụ:
+value?: string;
+- đối với những param trong method không cần thiết, thêm phải để giá trị default
+ví dụ:
+post(path: string, login: boolean = false){}
+
+-for/ for in : cho phép bạn truy cập vào index của mảng
+-forEach/ for of: cho phép bạn truy cập trực tiếp đến giá trị của phần tử
+
+các cách coppy trong js:
+có: shallow copying và deep copying
+với shallow copying:
+1-Object.assign(target,source)
+2-spread operator có thể đúng sử dụng với array, objct
+ví dụ:
+[...obj] => array
+{...obj} => object
+với deep copying:
+JON.parse(value-string)=> parse string to object
+JOS.stringify(value-object)=> parse object to string
+kết hợp:
+JOSN.parse(JSON.stringify(value-object),form-object);
+với form-object có thể có, có thể không
+với shallow copying khi clone giá trị gốc, mà thay đổi giá trị gốc thì động thời giá trị clone cũng bị thay đổi
+với deep copying khi clone giá trị gốc, mà giá trị gốc thay đổi thì giá trị clone không thay đổi.
+hạn chế với deep copying:
+nếu tham số của bạn là NaN, undefined, new Function(), function(){},.. đối khi những tham số đó bị mất.
+
+Generics trong typescript:
+mục dích:
+giúp cho các functions/ components/ modules không nhất thiết phải chỉ định kiểu dữ liệu lúc khởi tạo. khi functions/ components/ models
+được sử dụng thì chúng sẽ được khai báo báo kiểu dữ liệu
+cách dùng:
+type ObjectRoot = { param: type };
+function nameFunction<T extends ObjectRoot>(items :T[]): T {
+// code here
+return object of type T;
+}
+chú ý: nên sử dụng generics khi functions/ components/ models return ra chính kiểu dữ liệu của object giống với kiểu dữ liệu của object
+đầu vào.
+nếu functions/ components/ models đã return ra 1 kiểu dữ liệu cố định thì không cần sử dụng. kể cả khi ta sử dụng functions/ components/
+models có kiểu dữ liệu lớn hơn kiểu dữ liệu truyền vào thì chúng vẫn hoạt động. vì khi chúng ta truyền thừa kiểu dữ liệu thì
+functions/ components/ models đó không sử dụng những kiểu dữ liệu đó cho nếu functions/ components/ mdoels sẽ không bị ảnh hưởng.
+
++ngrx
+là một framework được xây dựng để phát triển  "reactive application" trong ứng dụng angular.
+ưu điểm:
+-single source of truth: tất cả các state của ứng dụng được lưu trong 1 objec tree duy nhất. vì vậy có thể chia sẻ state giữa các component
+trở nên rõ ràng.
+- hầu hết mọi thứ trong ngRx đề sử dụng pure function nên việc test trở nên dễ dàng.
+-scaleable: ứng dụng sẽ dễ dàng trong việc mở rộng vì cấu trúc của NGrx trở nên rõ ràng.
+các thành phần:
+store: nơi lưu trữ các state.
+action: thể hiện các hành động khi muốn thay đổi state,
+reducer: thực hiện chuyển đổi state từ trạng thái này -> trạng thái kia.
+selector: lấy ra state mong muốn trong store.
+
++trong việc xử lý bất đồng bộ (async) của js:
+sử dụng await đối vơi việc gọi function khác xử lý
+có thể sử dụng return function
+hoặc có thể sử dụng: return await
+đối với await:
+nếu hàm có xử lý có try/catch thì khi hàm xử lý await mà lỗi thì catch sẽ bắt lỗi của hàm.
+đối với returm:
+nếu hàm có xử lý try/catch thì khi hàm xử lý return mà lỗi thì nó sẽ không vào catch mà sẽ vào hàm xử lý return.
+đối với return await:
+nếu hàm xử lý try/catch thì khi hàm xử lý return ra giá trị xử lý thành công và catch ra giá trị lỗi của hàm.
+
++kĩ thuật lazy loading:
+trong thẻ img có thuộc tính loading với 3 giá trị:
+auto: giá trị mặc định phụ thuộc vào hành vị của từng trình duyệt tương tự không thêm loading.
+lazy: trì hoẵn tải tìai nguyên về cho đến khi đạt 1 khảon cách nào đó từ khung nhìn.
+eager: tải tài nguyên ngay lập tức, bất kể vị trí của nó ở đâu.
+ví dụ:
+<img src="awesome-photo.jpg" loading="lazy">
+
+đối với các trình duyệt không hỗ trợ thì tạo 1 polyfill hoặc dùng thư viện thứ 3 (LazySizes).
+thuộc tính loading có thể dùng để phát hiện xem trình duyệt có hỗ trợ tính năng không:
+if ('loading' in HTMLImageElement.prototype) {
+  // trình duyệt có hỗ trợ
+} else {
+  // sử dụng polyfill hoặc thư viện của bên thứ 3
+}
+
+sử dụng với LazySizes:
+https://github.com/aFarkas/lazysizes
+
+lưu ý:
+tránh sử dụng lazy loading với những ảnh trong khung nhìn đầu tiên.
