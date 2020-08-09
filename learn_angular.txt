@@ -590,3 +590,12 @@ function cloneFile(file: File): Observable<File>{
   })
  );
 }
+
+Partial: cung cấp cách thức để toàn bộ các property của kiểu dữ liệu đó được set là optional (không bắt buộc)
+ví dụ:
+export interface User{
+ id: numebr;
+ name: string;
+}
+
+const user : Partial<User> ={id:0};
