@@ -205,7 +205,10 @@ tác dụng:
 được sử dụng để router sẽ đợi cho đến khi data được trả về trước khi route được kích hoạt (trước khi màn hình được hiển thị)
 bước 1: tạo 1 file name.resolver.ts
 bước 2: file sẽ implements Resolve<Obect> ( object: là đối tượng sẽ nhận response trả về từ server)
-bước 3: truyền id vào api = route.paramMap.get('id');
+bước 3: 
+cách 1: truyền id vào api id = route.paramMap.get('id'); (cách này không nên dùng vì nó không có sự cập nhật lại (đồng bộ) khi có sự thay đôi từ router).
+cách 2: this.route.paramMap.subcribe((params: ParamMap) =>{ id = parseInt(params.get('id');});
+
 với route: ActivatedRouteSnapshot
 bên trong file sẽ thực hiện gọi api và return về observable, ngoài ra sẽ thực hiện xử lý check error ở đây thông qua catchError
 và chuyển hướng trang thông qua (Router).
@@ -224,7 +227,7 @@ cách 1:
 this.value = this.router.snapshot.data['name-list']; or this.router.snapshot.data.name-list;=> không cần subscribe (cách này không nên dùng do không có sự cập nhật lại
 khi có sự thay đổi từ router)
 cách 2:
-this.router.data.subscribe( (data) =>{ this.value = data; });
+this.router.data.subscribe( (val) =>{ this.value = val; });
 
 với router: ActivatedRoute được khai báo trên constructor.
 
