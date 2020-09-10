@@ -243,6 +243,14 @@ với ouput:
 <name-component-con (function-con)="function-cha"></name-component-con>
 chú ý:
 với output thì sẽ sử dụng EventEmitted<kieu-du-lieu>();
+sử dụng two-way binding với ngModel
+với componenet con:
+@Input()tem: kiểu dữ liệu
+@Output()tenChange = new EventEmitter<Kiểu dữ liệu>();
+trên conponenet cha:
+[(ten)]="value-cha"
+chú ý: input: xyz => output: xyzChange
+
 
 template variable:
 mục đích:
