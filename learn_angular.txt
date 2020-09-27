@@ -205,7 +205,7 @@ tác dụng:
 được sử dụng để router sẽ đợi cho đến khi data được trả về trước khi route được kích hoạt (trước khi màn hình được hiển thị)
 bước 1: tạo 1 file name.resolver.ts
 bước 2: file sẽ implements Resolve<Obect> ( object: là đối tượng sẽ nhận response trả về từ server)
-bước 3: 
+bước 3:
 cách 1: truyền id vào api id = route.paramMap.get('id'); (cách này không nên dùng vì nó không có sự cập nhật lại (đồng bộ) khi có sự thay đôi từ router).
 cách 2: this.route.paramMap.subcribe((params: ParamMap) =>{ id = parseInt(params.get('id');});
 
@@ -588,7 +588,7 @@ tránh sử dụng lazy loading với những ảnh trong khung nhìn đầu ti�
 cách thực hiện clone file:
 function cloneFile(file: File): Observable<File>{
  if(!(file&& file instanceof File)){
-  return of(null); 
+  return of(null);
  }
  const reader = new FileReader();
  const stream$ = fromEvent(reader, 'loadend');
@@ -610,3 +610,26 @@ export interface User{
 }
 
 const user : Partial<User> ={id:0};
+
+trong angular có cung cấp 2 giải pháp cho form là template-drivens forms và reactive forms (model-driven forms)
+- template-driven forms: hoạt động chủ yếu dựa trên các directives trên template như ngModel ngForm,.. dạng này sử dụng
+two-way binding để update data model giữa template  và component.
+- reactive forms: xây dựng form từ các model , là các object có một chức năng đặc biệt để quản lý các form input.
+
+sự khác nhau giữa submit và ngSubmit:
+-submit: sẽ thực hiện submit form và reload trang web khi thực hiện submit hoặc khi sing ra exception.
+-ngSubmit: sẽ thực hiện submit form và không reload  trang web khi thực hiện submit.
+ngSubmit có thể áp dụng trong reactive form.
+
+có 2 register control với form
+[ngModel]: là property binding, tức chúng ra binding property từ component lên template. (binding 1 chiều)
+[(ngModel)]: là two-way data binding, lúc này nó sẽ kết hợp giữa property binding và event binding (đồng bộ dữ liệu giữa template
+và component) (binding 2 chiều)
+
+angular form validation:
+validation status cho một control sẽ bao gồm status
+touched:(true) là khi người dùng đã focus vào control rồi sau đó blur (nhảy ra) khỏi control
+untouched:(true) là chưa đụng chạm gì, hoặc lần đầu focus và chưa bị mất focus.
+dirty: (true) là nếu người dùng thay đổi giá trị của control - ví dụ nhấp 1 kí tự vào ô input hoặc focus vào rồi xoá đi.
+pristine:(true) là người dùng chưa thay đổi value của control mặc dù người dùng có thể touch nhưng chưa sửa đổi.
+
