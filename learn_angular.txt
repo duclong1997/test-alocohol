@@ -617,9 +617,13 @@ two-way binding để update data model giữa template  và component.
 - reactive forms: xây dựng form từ các model , là các object có một chức năng đặc biệt để quản lý các form input.
 
 sự khác nhau giữa submit và ngSubmit:
--submit: sẽ thực hiện submit form và reload trang web khi thực hiện submit hoặc khi sing ra exception.
--ngSubmit: sẽ thực hiện submit form và không reload  trang web khi thực hiện submit.
-ngSubmit có thể áp dụng trong reactive form.
+-submit: sẽ thực hiện submit form và reload trang web khi thực hiện submit hoặc khi sinh ra exception.
+-ngSubmit: sẽ thực hiện submit form và không reload trang web khi thực hiện submit.
+
++Best practices:
+Nên sử dụng ngSubmit cho việc listen form submit (vì nó sẽ không reload lại web).
++lưu ý:
+ngSubmit có thể áp dụng cho cả reactive forms.
 
 có 2 register control với form
 [ngModel]: là property binding, tức chúng ra binding property từ component lên template. (binding 1 chiều)
@@ -633,3 +637,67 @@ untouched:(true) là chưa đụng chạm gì, hoặc lần đầu focus và ch�
 dirty: (true) là nếu người dùng thay đổi giá trị của control - ví dụ nhấp 1 kí tự vào ô input hoặc focus vào rồi xoá đi.
 pristine:(true) là người dùng chưa thay đổi value của control mặc dù người dùng có thể touch nhưng chưa sửa đổi.
 
+template-driven forms validation:
+required: yêu cầu form control không được phép bỏ trống.
+minlength: yêu cầu form control phải có value có length ít nhất bằng một giá trị nào đó.
+maxlength: yêu cầu form control phải có value có length không được vượt quá một giá trị nào đó.
+pattern: yêu cầu form control phải có value thoả mãn một partten nào đó (regEx)
+email: yêu cầu form control phải có value thảo mãn pattern của một email.
+
+reactive forms (model-driven forms)
+là 1 phương pháp để tạo ra form, không sử dụng ngModel, required,... thay cho việc tạo object ở các component, rồi tạo form từ
+chúng.
+
+lưu ý: reactive forms là sync, template-driven forms là async.
+
+trong reactive form, chúng ta tạo toàn bộ form control tree ở trong constructor (hoặc trong onInit) nên có thể dễ dàng truy cập
+các phần tử của form ngay tức thì.
+form state ở trong reactive form là immutable ( bất biến), mỗi sự thay đổi của form state sẽ tạo ra 1 state mới.
+reactive thì sử dụng khá nhiều observable streams, ví dụ valueChanges, statusChanges. bạn hoàn toàn có thể combine (phối hợp)
+và manipulate (vận dụng) stream như những observable thông thường.
+validation trên reactive form cũng rất dễ dàng, nó chỉ là 1 function và bạn có thể hoàn toàn thay thế trong khi application run
+sử dụng:
+cần import ReactiveFormsModule trong module cần sử dụng.
+AbstractControl: là class base của 3 thành phần (formGroup, formControl, formArray)
+-formControl: là đơn vị nhỏ nhất của form, dùng để track (theo dõi) thông tin value, validation của form control ví dụ như input,
+checkbox, ...
+-formGroup: là một tập hợp của các control/group/array (AbstractControl) dạng như một object, nó có thể chứa các value đơn hoặc các
+object khac.
+-formArray: là cấu trúc dưới dạng array, để quản lý các AbstractControl theo dạng mảng, dùng trong trường hợp có thể thêm bớt phần
+tử 1 cách linh hoạt.
+thông thường mỗi 1 form sẽ bắt đầu bởi một formGroup, nó sẽ khai báo các AbstractControl trong nó.
+ví dụ:
+trong componenet:
+siginForm = new FormGroup(
+  {
+    username: new FormControl("value"), // <= value default
+    password: new FormControl(""),
+    gender: new FormControl(true)
+  }
+)
+binding form (template):
+-để binding fomrControl thì chúng ta sử dụng formControlName
+<form [formGroup]="siginForm">
+  <input formControlName="username">
+</form>
+
++FormBuilder Service: giúp cho việc khởi tạo form nhanh hơn không cần new nếu như form có số lượng control lớn.
+cần inject FormBuilder vào constructor.
+ví dụ:
+ signInForm: FormGroup;
+constructor(private fb: FormBuilder) {}
+ngOnInit(){
+  this.signInForm = this.fb.group({
+    username: 'value',
+    gender:true
+    password: '',
+  })
+}
++update value trong reactive form qua patchValue hoặc setValue:
+-Đối với formControl: sẽ không có sự khác giữa 2 phương thức patchValue và setValue.
+-Đối với formGroup và formArray: thì patchValue sẽ cập nhật các giá trị khai báo tương ứng trong object value truyền vào,
+Nhưng đối với setValue sẽ yêu cầu truyền đủ và chính xác object có cấu trúc giống với cấu trúc của form và nó sẽ báo lỗi khi
+một control nào đó bị thừa hoặc thiếu.
+
++event ngSubmit và submit:
+giống với template-driven form.
