@@ -1,31 +1,33 @@
-import { ServiceHotelComponent } from './service-hotel/service-hotel.component';
-import { CreateComponent } from './create/create.component';
-import { Path } from './../utils/path';
-import { UpdateComponent } from './update/update.component';
-import { HotelComponent } from './hotel.component';
-import { NgModule, Component } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ListComponent } from './list/list.component';
-import { DetailComponent } from './detail/detail.component';
-
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CreateComponent } from "./create/create.component";
+import { DetailComponent } from "./detail/detail.component";
+import { HotelComponent } from "./hotel.component";
+import { ListComponent } from "./list/list.component";
+import { ServiceHotelComponent } from "./service-hotel/service-hotel.component";
+import { UpdateComponent } from "./update/update.component";
 
 const routes: Routes = [
-{path : "", Component: HotelComponent,
-// path children routing
-children:[
-    {path:"", Component: ListComponent},
-    {path:"detail", Component: DetailComponent},
-    {path:"update", Component: UpdateComponent},
-    {Path: "create", Component:CreateComponent}
-  ]
-},
+  {
+    path: "",
+    component: HotelComponent,
+    // path children routing
+    children: [
+      { path: "", component: ListComponent },
+      { path: "detail", component: DetailComponent },
+      { path: "update", component: UpdateComponent },
+      { path: "create", component: CreateComponent },
+    ],
+  },
 
-{path : "service", Component: ServiceHotelComponent}
-
+  {
+    path: "service",
+    component: ServiceHotelComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HotelRoutingModule { }
+export class HotelRoutingModule {}

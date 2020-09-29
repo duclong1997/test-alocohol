@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="registerFrom">
+
+        <!-- username  -->
+        <mat-form-field [appearance]="'outline'">
+          <mat-label>Username</mat-label>
+          <Input matInput placeholder="username" type="text" formControlName="username">
+        </mat-form-field>
+
+        <!-- password  -->
+        <mat-form-field [appearance]="'outline'">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Password" type="password" formControlName="password">
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button mat-mat-raised-button color="primary" (click)="viewRegister()">Register</button>
+    </div>
+  </div>
+</div>
