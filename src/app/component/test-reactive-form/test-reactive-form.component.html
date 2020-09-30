@@ -1,25 +1,27 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <form [formGroup]="registerFrom">
-
-        <!-- username  -->
-        <mat-form-field [appearance]="'outline'">
-          <mat-label>Username</mat-label>
-          <Input matInput placeholder="username" type="text" formControlName="username">
-        </mat-form-field>
-
-        <!-- password  -->
-        <mat-form-field [appearance]="'outline'">
-          <mat-label>Password</mat-label>
-          <input matInput placeholder="Password" type="password" formControlName="password">
-        </mat-form-field>
+      <form class="sign-in-form" [formGroup]="signInForm">
+        <h2>Sign in</h2>
+        <div class="row-control">
+          <mat-form-field [appearance]="'outline'">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username">
+          </mat-form-field>
+        </div>
+        <div class="row-control">
+          <mat-form-field [appearance]="'outline'">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="password">
+          </mat-form-field>
+        </div>
       </form>
     </div>
   </div>
-  <div class="row">
+  <div class="row mp-3">
     <div class="col-12">
-      <button mat-mat-raised-button color="primary" (click)="viewRegister()">Register</button>
+      <button mat-raised-button color="primary" (click)="viewRegister()" class="mr-3">Register</button>
+      <button mat-raised-button color="warn" (click)="setvalue()"> Set new Values</button>
     </div>
   </div>
 </div>
