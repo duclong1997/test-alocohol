@@ -701,3 +701,21 @@ một control nào đó bị thừa hoặc thiếu.
 
 +event ngSubmit và submit:
 giống với template-driven form.
+
+
+sự khác nhau giữa {{}} và []:
+{{}}: là một form cơ bản của nội suy string. Nó là 1 cách đơn giản để thay thế HTML string cùng với kết quả của rằng buộc. và
+trên form html sẽ nhân kết quả răng buộc đó.
+
+[]: thì thực thi theo cách khác. bạn nên nghĩ nó như là sự điều khiển DOM sau khi HTML được xử lý bởi browser,
+cho nên [src] binding nó sẽ không là "property" , không phải "attribute" của img
+
+
+property binding nó sẽ không phải là nội suy string- nó có thể đảm bảo, giữ gìn kiểu của dữ liệu.
+
+attribute: là các thuộc tính của các thẻ (ví dụ <a> có href, <input> có id) ngoài ra nằm trong DOM object phản ánh (liên hệ
+chặt chẽ ) với các attribute của phần Html.
+property: không có khái niệm trong Html, tồn tại trong đối tượng DOM object.
+
+đối với attribute một khi đã được khởi tạo , giá trị của một HTML ATTRIBUTE bất kì sẽ không thay đổi.
+Nhưng chúng ta có thể thay đổi giá trị của property trong đối tượng DOM
