@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { NoWhitespaceValidator } from "../../validator/no-whitespace.validator";
 @Component({
   selector: "app-test-reactive-form",
   templateUrl: "./test-reactive-form.component.html",
@@ -14,8 +14,36 @@ export class TestReactiveFormComponent implements OnInit {
 
   ngOnInit() {
     this.signInForm = this.bf.group({
-      username: "",
-      password: "",
+      // cú pháp khi khởi tạo formControl trong group với FormBuilder sẽ truyền vào 1 mảng với 3 phần tử
+      // 1: giá trị mặc định
+      // 2: sync validator
+      // 3: async validator
+      username: [
+        // value default
+        "value",
+        // sync validator
+        Validators.compose([Validators.required, Validators.minLength(6)]),
+        // async validator
+        Validators.composeAsync([]),
+      ],
+
+      // way 1:
+      password: ["", [Validators.required, Validators.email]],
+      address: this.bf.group({
+        // custom validator ( sync validator)
+        street: ["", Validators.compose([NoWhitespaceValidator()])],
+        // way 2:
+        // Validator.compose: được sử dụng để kết hợp nhiều validator lại với nhau nếu như cụm validator được sử dụng
+        // nhiều lần
+        city: [
+          "",
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(6),
+            Validators.pattern(/^(?=.*[!@#$%^&*]+)[a-z0-9!@#$%^&*]{6,32}$/),
+          ]),
+        ],
+      }),
     });
   }
 

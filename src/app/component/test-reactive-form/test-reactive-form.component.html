@@ -14,13 +14,62 @@
             <mat-label>Password</mat-label>
             <input type="password" matInput formControlName="password">
           </mat-form-field>
+          <span class="text-danger"
+            *ngIf="signInForm.get('password').errors && (signInForm.get('password').dirty || signInForm.get('password').touched)">
+            <small *ngIf="signInForm.get('password').errors.required">
+              password khong duoc de trong
+            </small>
+            <small *ngIf="signInForm.get('password').errors.email">
+              password sai dinh dang
+            </small>
+          </span>
+        </div>
+        <!-- nester group  -->
+        <div formGroupName="address">
+          <div>
+            <div class="row-control">
+              <mat-form-field [appearance]="'outline'">
+                <mat-label>street</mat-label>
+                <input matInput formControlName="street">
+              </mat-form-field>
+              <span class="text-danger"
+                *ngIf="signInForm.get('address.street').errors && (signInForm.get('address.street').dirty || signInForm.get('address.street').touched)">
+                <!-- whitespace: return custom validator errors -->
+                <small *ngIf="signInForm.get('address.street').errors.whitespace">
+                  {{signInForm.get('address.street').errors.whitespace}}
+                </small>
+              </span>
+            </div>
+            <div class="row-control">
+              <mat-form-field [appearance]="'outline'">
+                <mat-label>city</mat-label>
+                <input matInput formControlName="city" id="city">
+              </mat-form-field>
+            </div>
+            <div>
+              <!-- validation property in  nest group  -->
+              <span
+                *ngIf="signInForm.get('address.city').errors && (signInForm.get('address.city').dirty || signInForm.get('address.city').touched)"
+                class="text-danger">
+                <small *ngIf="signInForm.get('address.city')?.errors?.required">
+                  city khong duoc de trong
+                </small>
+                <small *ngIf="signInForm.get('address.city')?.errors?.email">
+                  city sai dinh dang
+                </small>
+              </span>
+            </div>
+          </div>
         </div>
       </form>
     </div>
   </div>
   <div class="row mp-3">
     <div class="col-12">
-      <button mat-raised-button color="primary" (click)="viewRegister()" class="mr-3">Register</button>
+      <!-- invalid form validatio -->
+      <button mat-raised-button color="primary" (click)="viewRegister()" class="mr-3" [disabled]="signInForm.invalid">
+        Register
+      </button>
       <button mat-raised-button color="warn" (click)="setvalue()"> Set new Values</button>
     </div>
   </div>

@@ -644,6 +644,9 @@ maxlength: yêu cầu form control phải có value có length không được v
 pattern: yêu cầu form control phải có value thoả mãn một partten nào đó (regEx)
 email: yêu cầu form control phải có value thảo mãn pattern của một email.
 
+trong template form cho phép xác thực 1 cách trực tiếp sửa đổi dữ liệu ở trên template, nhưng ít sự rõ ràng hơn reactive form.
+vì chúng dựa vào chính các chỉ thị ở trên template, cùng với đó là sự bất biến dữ liệu theo dõi sự thay đổi bất đồng bộ.
+
 reactive forms (model-driven forms)
 là 1 phương pháp để tạo ra form, không sử dụng ngModel, required,... thay cho việc tạo object ở các component, rồi tạo form từ
 chúng.
@@ -664,7 +667,7 @@ checkbox, ...
 -formGroup: là một tập hợp của các control/group/array (AbstractControl) dạng như một object, nó có thể chứa các value đơn hoặc các
 object khac.
 -formArray: là cấu trúc dưới dạng array, để quản lý các AbstractControl theo dạng mảng, dùng trong trường hợp có thể thêm bớt phần
-tử 1 cách linh hoạt.
+tử 1 cách linh hoạt. có thể add or remove
 thông thường mỗi 1 form sẽ bắt đầu bởi một formGroup, nó sẽ khai báo các AbstractControl trong nó.
 ví dụ:
 trong componenet:
@@ -702,6 +705,27 @@ một control nào đó bị thừa hoặc thiếu.
 +event ngSubmit và submit:
 giống với template-driven form.
 
+có thể kết hợp lồng formGroup:
+với formGroup con thì => formGroupName với tên của group form sau đó sẽ đến các formControlName.
+
+có 2 loại validator function:
+1: sync validator( đồng bộ)
+đây là các function để validate thường gặp , sẽ nhận đầu vào là 1 form control và trả về:
+- một danh sách các validators erros.
+- hoặc null tức là control này không có lỗi.
+2: Async validator( bất đồng bộ)
+đây là validator sẽ trả vê promise hoặc obserable , ví dụ như bạn muốn validate xem username đã tồn tại hay chưa thì sẽ gửi
+1 request yêu cầu server để làm việc này,
+lúc này chúng ta sẽ sử dụng custom validator.
+cú pháp khi khởi tạo formControl trong form group bằng formBuilder sẽ hơi khác , thay vì 3 argument riêng biệt thì bạn sẽ truyền
+vào một mảng với có 3 phần tử:
+- đầu tiên là giá trị mặc định
+- sync validator
+- async validator
+
+
+formArray:
+
 
 sự khác nhau giữa {{}} và []:
 {{}}: là một form cơ bản của nội suy string. Nó là 1 cách đơn giản để thay thế HTML string cùng với kết quả của rằng buộc. và
@@ -719,3 +743,6 @@ property: không có khái niệm trong Html, tồn tại trong đối tượng 
 
 đối với attribute một khi đã được khởi tạo , giá trị của một HTML ATTRIBUTE bất kì sẽ không thay đổi.
 Nhưng chúng ta có thể thay đổi giá trị của property trong đối tượng DOM
+
+callback: gọi lại một function sẽ được thực thi sau khi một function khác đã được thực thi xong.
+nhờ callback sẽ đảm bảo code sẽ không hoạt động trước khi các code khác hoàn thành việc thực hiện.
