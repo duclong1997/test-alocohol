@@ -723,8 +723,11 @@ vào một mảng với có 3 phần tử:
 - sync validator
 - async validator
 
-
-formArray:
+create form dynamic:
+formArray: là 1 cách thay thế tuyệt vời cho formgroup cho việc quản lý số lượng control mà không biết chính xác chúng. Giống như form
+group instance , bạn có thể insert or remove controls từ instance form array cùng với giá trị và validator sẽ được tính toán từ
+các child controls. Tuy nhiên bạn sẽ không cần định nghĩa một key cho mỗi control by name, đó là sự lựa chọn tuyệt vời nếu như bạn
+không biết số lượng control của mình.
 
 
 sự khác nhau giữa {{}} và []:

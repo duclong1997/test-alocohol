@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NoWhitespaceValidator } from "../../validator/no-whitespace.validator";
 @Component({
   selector: "app-test-reactive-form",
@@ -29,6 +29,7 @@ export class TestReactiveFormComponent implements OnInit {
 
       // way 1:
       password: ["", [Validators.required, Validators.email]],
+      // from group
       address: this.bf.group({
         // custom validator ( sync validator)
         street: ["", Validators.compose([NoWhitespaceValidator()])],
@@ -44,7 +45,31 @@ export class TestReactiveFormComponent implements OnInit {
           ]),
         ],
       }),
+      // form array have element is group
+      elements: this.bf.array([]),
     });
+  }
+
+  child() {
+    return this.bf.group({
+      name: [""],
+      id: [0],
+    });
+  }
+
+  // define elements array in group control
+  elements() {
+    return this.signInForm.get("elements") as FormArray;
+  }
+
+  // add element
+  addElement() {
+    this.elements().push(this.child());
+  }
+
+  // remove element
+  removeElement(i: number) {
+    this.elements().removeAt(i);
   }
 
   viewRegister() {

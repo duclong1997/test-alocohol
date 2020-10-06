@@ -61,16 +61,56 @@
             </div>
           </div>
         </div>
+        <!-- array form  -->
+        <div formArrayName="elements">
+          <h3>elements</h3>
+          <button mat-raised-button color="primary" class="mr-3" (click)="addElement()">
+            Add element
+          </button>
+          <!-- array elements  -->
+          <div class="mt-3" *ngFor="let item of elements().controls; let i= index">
+
+            <!-- element group -->
+            <div [formGroupName]="i">
+              elemet of {{i}}:
+              <!-- property of element group -->
+              <div class="row-control">
+                <mat-form-field [appearance]="'outline'">
+                  <mat-label>id</mat-label>
+                  <input matInput formControlName="id">
+                </mat-form-field>
+              </div>
+
+              <div class="row-control">
+                <mat-form-field [appearance]="'outline'">
+                  <mat-label>name</mat-label>
+                  <input matInput formControlName="name">
+                </mat-form-field>
+              </div>
+
+              <!-- remove element  -->
+              <button mat-raised-button color="primary" class="mr-3" (click)="removeElement(i)">
+                remove element
+              </button>
+            </div>
+
+          </div>
+        </div>
       </form>
     </div>
   </div>
-  <div class="row mp-3">
-    <div class="col-12">
+  <div class="row mp-3 mt-3">
+    <div class="col-12 mb-2">
       <!-- invalid form validatio -->
       <button mat-raised-button color="primary" (click)="viewRegister()" class="mr-3" [disabled]="signInForm.invalid">
         Register
       </button>
-      <button mat-raised-button color="warn" (click)="setvalue()"> Set new Values</button>
+      <button mat-raised-button color="warn" (click)="setvalue()"> Set value default</button>
+    </div>
+    <!-- value reactive form  -->
+    <div class="col-12">
+      <h4>value reactive form:</h4>
+      {{signInForm.value | json}}
     </div>
   </div>
 </div>
