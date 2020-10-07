@@ -723,6 +723,17 @@ vào một mảng với có 3 phần tử:
 - sync validator
 - async validator
 
+với sync validator: là các function validator thường gặp sẽ nhận đầu vào là control và trả về validator error hoặc null (thoả mãn).
+sync validator sẽ thực hiện check trực tiếp giá trị trên control.
+với async validator: là sẽ trả về các promise hoặc obserable. thông thường async validator được sử dụng để gửi yêu cầu lên server
+để thực hiện check tồn tại ở db hoặc thoả mãn nghiệp vụ từ phía server.
+
+có 2 cách custom async validator:
+- sử dụng với 1 function nhận vào là 1 service, output trả về AsyncValidatorFn và sẽ return ra 1 function có tham số truyền vào
+là control: AbstractControl và output sẽ trả về dưới dạng: Promise<ValidationErrors | null> | Observable<ValidationErrors | null>
+- sử dụng directive implements AsyncValidator, trong đó có định nghĩa sẵn là bạn phải implements function validate. Sau đó bạn
+sẽ thêm directive trong input của control bạn muốn trên template.
+
 create form dynamic:
 formArray: là 1 cách thay thế tuyệt vời cho formgroup cho việc quản lý số lượng control mà không biết chính xác chúng. Giống như form
 group instance , bạn có thể insert or remove controls từ instance form array cùng với giá trị và validator sẽ được tính toán từ
@@ -749,3 +760,8 @@ Nhưng chúng ta có thể thay đổi giá trị của property trong đối t�
 
 callback: gọi lại một function sẽ được thực thi sau khi một function khác đã được thực thi xong.
 nhờ callback sẽ đảm bảo code sẽ không hoạt động trước khi các code khác hoàn thành việc thực hiện.
+
+bind: là phương thức để tạo ra 1 function khi được call, từ khoá this sẽ đặt vào làm giá trị được cung cấp.
+cùng với một chuỗi giá trị nhất định được cung cấp khi function mới được gọi.
+Nói cách khác, bind giúp chúng ta tạo ra được "function" cùng với "this" được rằng buộc với object.
+Nghĩa là nó giúp chúng ta lấy được property bên trong object ( nếu property đó tồn tại trong object và trong cả global).

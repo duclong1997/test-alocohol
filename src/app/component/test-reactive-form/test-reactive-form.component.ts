@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ApiTestService } from "src/app/service/api-test/api-test.service";
+import { userAsyncValidator } from "src/app/validator/user-async.validator";
+import { UserNameApiDirective } from "src/app/validator/user-name-api.directive";
 import { NoWhitespaceValidator } from "../../validator/no-whitespace.validator";
 @Component({
   selector: "app-test-reactive-form",
@@ -10,7 +13,10 @@ export class TestReactiveFormComponent implements OnInit {
   signInForm: FormGroup;
 
   // sử dụng FormBuilder giúp dễ dành trong biệc khởi tạo formcontrol không cần sử dụng new
-  constructor(private bf: FormBuilder) {}
+  constructor(
+    private bf: FormBuilder,
+    private apiTestService: ApiTestService
+  ) {}
 
   ngOnInit() {
     this.signInForm = this.bf.group({
@@ -47,6 +53,18 @@ export class TestReactiveFormComponent implements OnInit {
       }),
       // form array have element is group
       elements: this.bf.array([]),
+
+      formAsync: this.bf.group({
+        nameAsync: [
+          "",
+          Validators.compose([Validators.required, Validators.minLength(2)]),
+        ],
+        nameAsync2: [
+          "",
+          Validators.compose([Validators.required, Validators.minLength(2)]),
+          Validators.composeAsync([userAsyncValidator(this.apiTestService)]),
+        ],
+      }),
     });
   }
 

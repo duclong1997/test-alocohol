@@ -83,17 +83,67 @@
 
               <div class="row-control">
                 <mat-form-field [appearance]="'outline'">
-                  <mat-label>name</mat-label>
+                  <mat-label>name: </mat-label>
                   <input matInput formControlName="name">
                 </mat-form-field>
               </div>
-
               <!-- remove element  -->
               <button mat-raised-button color="primary" class="mr-3" (click)="removeElement(i)">
                 remove element
               </button>
             </div>
 
+          </div>
+        </div>
+
+        <!-- Async form validator -->
+        <div formGroupName="formAsync" class="mt-3">
+          <div class="row-control">
+            <mat-form-field [appearance]="'outline'">
+              <!-- way 1: Directive AsyncValidator -->
+              <mat-label>name Async</mat-label>
+              <input matInput formControlName="nameAsync" appUserNameApi>
+            </mat-form-field>
+          </div>
+          <div>
+            <!-- validation property in  nest group  -->
+            <span
+              *ngIf="signInForm.get('formAsync.nameAsync').errors && (signInForm.get('formAsync.nameAsync').dirty || signInForm.get('formAsync.nameAsync').touched)"
+              class="text-danger">
+              <small *ngIf="signInForm.get('formAsync.nameAsync')?.errors?.required">
+                name Async khong duoc de trong
+              </small>
+              <small *ngIf="signInForm.get('formAsync.nameAsync')?.errors?.minLength">
+                name Async qua ngan
+              </small>
+              <small *ngIf="signInForm.get('formAsync.nameAsync')?.errors?.usernameDuplicated">
+                name Async đã tồn tại
+              </small>
+            </span>
+          </div>
+
+          <div class="row-control">
+            <mat-form-field [appearance]="'outline'">
+              <!-- way 2: function AsyncValidator -->
+              <mat-label>name Async 2</mat-label>
+              <input matInput formControlName="nameAsync2">
+            </mat-form-field>
+          </div>
+          <div>
+            <!-- validation property in  nest group  -->
+            <span
+              *ngIf="signInForm.get('formAsync.nameAsync2').errors && (signInForm.get('formAsync.nameAsync2').dirty || signInForm.get('formAsync.nameAsync2').touched)"
+              class="text-danger">
+              <small *ngIf="signInForm.get('formAsync.nameAsync2')?.errors?.required">
+                name Async 2 khong duoc de trong
+              </small>
+              <small *ngIf="signInForm.get('formAsync.nameAsync2')?.errors?.minLength">
+                name Async 2 qua ngan
+              </small>
+              <small *ngIf="signInForm.get('formAsync.nameAsync2')?.errors?.usernameDuplicated">
+                name Async 2 đã tồn tại
+              </small>
+            </span>
           </div>
         </div>
       </form>

@@ -38,6 +38,7 @@ import { ReactiveFormComponent } from "./component/reactive-form/reactive-form.c
 import { SearchNameComponent } from "./component/search-name/search-name.component";
 import { TestReactiveFormComponent } from "./component/test-reactive-form/test-reactive-form.component";
 import { WeatherComponent } from "./component/weather/weather.component";
+import { UserNameApiDirective } from './validator/user-name-api.directive';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { WeatherComponent } from "./component/weather/weather.component";
     ChartCoronaComponent,
     ChartCoronaConfirmedComponent,
     TestReactiveFormComponent,
+    UserNameApiDirective,
   ],
   imports: [
     BrowserModule,
