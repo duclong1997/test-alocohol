@@ -740,6 +740,12 @@ group instance , bạn có thể insert or remove controls từ instance form ar
 các child controls. Tuy nhiên bạn sẽ không cần định nghĩa một key cho mỗi control by name, đó là sự lựa chọn tuyệt vời nếu như bạn
 không biết số lượng control của mình.
 
+trong form, trong khoảng thời gian delay 1 giây khi async validator đang đợi kết quả kiểm tra từ api thì các button thực hiện sẽ được
+enable trở lại. nên nếu user nhanh tay vẫn có thể ấn button và vẫn thực hiện phần code thực hiện submit form.
+để giải quyết vấn đề đó:
+ý tưởng thay vì ngSubmit sẽ trigger thẳng hàm submit , thay vào đó mình sẽ tạo ra 1 subject tên formSubmit$ và handle chỉ khi status
+của form là VALID thì formSubmit$ mới emit một value => call submitForm.
+
 
 sự khác nhau giữa {{}} và []:
 {{}}: là một form cơ bản của nội suy string. Nó là 1 cách đơn giản để thay thế HTML string cùng với kết quả của rằng buộc. và
@@ -747,7 +753,6 @@ trên form html sẽ nhân kết quả răng buộc đó.
 
 []: thì thực thi theo cách khác. bạn nên nghĩ nó như là sự điều khiển DOM sau khi HTML được xử lý bởi browser,
 cho nên [src] binding nó sẽ không là "property" , không phải "attribute" của img
-
 
 property binding nó sẽ không phải là nội suy string- nó có thể đảm bảo, giữ gìn kiểu của dữ liệu.
 

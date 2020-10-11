@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <form class="sign-in-form" [formGroup]="signInForm">
+      <form class="sign-in-form" [formGroup]="signInForm" autocomplete="off">
         <h2>Sign in</h2>
         <div class="row-control">
           <mat-form-field [appearance]="'outline'">
@@ -9,6 +9,7 @@
             <input matInput formControlName="username">
           </mat-form-field>
         </div>
+        <!-- password -->
         <div class="row-control">
           <mat-form-field [appearance]="'outline'">
             <mat-label>Password</mat-label>
@@ -21,6 +22,26 @@
             </small>
             <small *ngIf="signInForm.get('password').errors.email">
               password sai dinh dang
+            </small>
+          </span>
+        </div>
+
+        <!-- confirm password -->
+        <div class="row-control">
+          <mat-form-field [appearance]="'outline'">
+            <mat-label>confirmPassword</mat-label>
+            <input type="password" matInput formControlName="confirmPassword">
+          </mat-form-field>
+          <span class="text-danger"
+            *ngIf="signInForm.get('confirmPassword').errors && (signInForm.get('confirmPassword').dirty || signInForm.get('confirmPassword').touched)">
+            <small *ngIf="signInForm.get('confirmPassword').errors.required">
+              cofirm password khong duoc de trong
+            </small>
+            <small *ngIf="signInForm.get('confirmPassword').errors.email">
+              confirm password sai dinh dang
+            </small>
+            <small *ngIf="signInForm.get('confirmPassword').errors.valueNotMatch">
+              confirm password không giống với password
             </small>
           </span>
         </div>
@@ -101,6 +122,7 @@
           <div class="row-control">
             <mat-form-field [appearance]="'outline'">
               <!-- way 1: Directive AsyncValidator -->
+              <!-- appUserNameApi: directive implements AsyncValidator -->
               <mat-label>name Async</mat-label>
               <input matInput formControlName="nameAsync" appUserNameApi>
             </mat-form-field>
@@ -116,6 +138,7 @@
               <small *ngIf="signInForm.get('formAsync.nameAsync')?.errors?.minLength">
                 name Async qua ngắn
               </small>
+              <!-- usernameDuplicated: key của error directive appUserNameApi implements AsyncValidator -->
               <small *ngIf="signInForm.get('formAsync.nameAsync')?.errors?.usernameDuplicated">
                 name Async đã tồn tại
               </small>
@@ -130,7 +153,7 @@
             </mat-form-field>
           </div>
           <div>
-            <!-- validation property in  nest group  -->
+            <!-- validation property in nest group  -->
             <span
               *ngIf="signInForm.get('formAsync.nameAsync2').errors && (signInForm.get('formAsync.nameAsync2').dirty || signInForm.get('formAsync.nameAsync2').touched)"
               class="text-danger">
@@ -155,6 +178,12 @@
       <button mat-raised-button color="primary" (click)="viewRegister()" class="mr-3" [disabled]="signInForm.invalid">
         Register
       </button>
+      <!-- validate: async validator -->
+      <button mat-raised-button color="primary" (click)="formSubmit$.next()" class="mr-3"
+        [disabled]="signInForm.invalid">
+        Register async
+      </button>
+
       <button mat-raised-button color="warn" (click)="setvalue()"> Set value default</button>
     </div>
     <!-- value reactive form  -->

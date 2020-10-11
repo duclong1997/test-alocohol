@@ -3,8 +3,8 @@ import {
   AsyncValidatorFn,
   ValidationErrors,
 } from "@angular/forms";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { Observable, timer } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
 import { ApiTestService } from "../service/api-test/api-test.service";
 
 export function userAsyncValidator(
@@ -13,15 +13,19 @@ export function userAsyncValidator(
   return (
     control: AbstractControl
   ): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-    return apiTestService.validateUsernameAsync(control.value).pipe(
-      map((isValid) => {
-        if (isValid) {
-          return null;
-        }
-        return {
-          usernameDuplicated: true,
-        };
-      })
+    return timer(300).pipe(
+      switchMap(() =>
+        apiTestService.validateUsernameAsync(control.value).pipe(
+          map((isValid) => {
+            if (isValid) {
+              return null;
+            }
+            return {
+              usernameDuplicated: true,
+            };
+          })
+        )
+      )
     );
   };
 }
