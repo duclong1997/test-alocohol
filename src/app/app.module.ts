@@ -38,7 +38,10 @@ import { ReactiveFormComponent } from "./component/reactive-form/reactive-form.c
 import { SearchNameComponent } from "./component/search-name/search-name.component";
 import { TestReactiveFormComponent } from "./component/test-reactive-form/test-reactive-form.component";
 import { WeatherComponent } from "./component/weather/weather.component";
-import { UserNameApiDirective } from './validator/user-name-api.directive';
+import { UserNameApiDirective } from "./validator/user-name-api.directive";
+import { DynamicComponentComponent } from "./component/dynamic-component/dynamic-component.component";
+import { DynamicOneComponent } from "./component/dynamic-one/dynamic-one.component";
+import { DynamicTwoComponent } from "./component/dynamic-two/dynamic-two.component";
 
 @NgModule({
   declarations: [
@@ -73,6 +76,9 @@ import { UserNameApiDirective } from './validator/user-name-api.directive';
     ChartCoronaConfirmedComponent,
     TestReactiveFormComponent,
     UserNameApiDirective,
+    DynamicComponentComponent,
+    DynamicOneComponent,
+    DynamicTwoComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,5 +94,6 @@ import { UserNameApiDirective } from './validator/user-name-api.directive';
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [DynamicTwoComponent, DynamicOneComponent],
 })
 export class AppModule {}

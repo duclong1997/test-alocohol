@@ -21,6 +21,7 @@ import { CoronaCountryComponent } from "./component/corona-country/corona-countr
 import { CoronaDetailCoutryComponent } from "./component/corona-detail-coutry/corona-detail-coutry.component";
 import { ChartCoronaComponent } from "./component/chart-corona/chart-corona.component";
 import { TestReactiveFormComponent } from "./component/test-reactive-form/test-reactive-form.component";
+import { DynamicComponentComponent } from "./component/dynamic-component/dynamic-component.component";
 
 const routes: Routes = [
   // add module with path /hotel from module hotel (lazy load)
@@ -129,6 +130,10 @@ const routes: Routes = [
   {
     path: "test-reactive-form",
     component: TestReactiveFormComponent,
+  },
+  {
+    path: "dynamic-component",
+    component: DynamicComponentComponent,
   },
 
   // page error

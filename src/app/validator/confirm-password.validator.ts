@@ -8,8 +8,10 @@ export function validateControlsValue(
     const controlSecond = formGroup.get(secondControlName);
 
     return controlFirst.value === controlSecond.value
-      ? controlSecond.setErrors(null)
-      : controlSecond.setErrors({
+      ? // success
+        controlSecond.setErrors(null)
+      : // fail với error: valueNotMatch
+        controlSecond.setErrors({
           valueNotMatch: {
             first: controlFirst.value,
             second: controlSecond.value,

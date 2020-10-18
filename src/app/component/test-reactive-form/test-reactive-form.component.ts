@@ -89,6 +89,7 @@ export class TestReactiveFormComponent implements OnInit {
     );
   }
 
+  // khi sử dụng cùng với async validator
   filterFormSubmit() {
     this.formSubmit$
       .pipe(
