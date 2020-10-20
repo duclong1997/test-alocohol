@@ -1,9 +1,11 @@
-<button (click)="addDynamicCompOne()" class="btn">
+<button (click)="addDynamicCompOne()">
   Add Dynamic Component 1
 </button>
-<button (click)="addDynamicCompTwo()" class="btn">
+<button (click)="addDynamicCompTwo()">
   Add Dynamic Component 2
 </button>
-
-<!-- view component -->
+<button (click)="clearComponent()">Clear component</button>
+<!-- view component dynamic here -->
 <div #dynamicComponent></div>
+
+<h3>Secret: {{secret}}</h3>

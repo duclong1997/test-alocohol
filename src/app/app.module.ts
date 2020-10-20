@@ -23,6 +23,9 @@ import { DetailPhotoComponent } from "./component/detail-photo/detail-photo.comp
 import { DetailPostComponent } from "./component/detail-post/detail-post.component";
 import { DetailTodoComponent } from "./component/detail-todo/detail-todo.component";
 import { DetailComponent } from "./component/detail/detail.component";
+import { DynamicComponentComponent } from "./component/dynamic-component/dynamic-component.component";
+import { DynamicOneComponent } from "./component/dynamic-one/dynamic-one.component";
+import { DynamicTwoComponent } from "./component/dynamic-two/dynamic-two.component";
 import { ErrorComponent } from "./component/error/error.component";
 import { HomePageComponent } from "./component/home-page/home-page.component";
 import { HomeComponent } from "./component/home/home.component";
@@ -39,9 +42,6 @@ import { SearchNameComponent } from "./component/search-name/search-name.compone
 import { TestReactiveFormComponent } from "./component/test-reactive-form/test-reactive-form.component";
 import { WeatherComponent } from "./component/weather/weather.component";
 import { UserNameApiDirective } from "./validator/user-name-api.directive";
-import { DynamicComponentComponent } from "./component/dynamic-component/dynamic-component.component";
-import { DynamicOneComponent } from "./component/dynamic-one/dynamic-one.component";
-import { DynamicTwoComponent } from "./component/dynamic-two/dynamic-two.component";
 
 @NgModule({
   declarations: [
@@ -94,6 +94,7 @@ import { DynamicTwoComponent } from "./component/dynamic-two/dynamic-two.compone
   ],
   providers: [],
   bootstrap: [AppComponent],
+  // khai báo component động
   entryComponents: [DynamicTwoComponent, DynamicOneComponent],
 })
 export class AppModule {}
