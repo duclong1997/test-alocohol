@@ -803,3 +803,42 @@ framework.
 
 tạo ra app chính (sell):
 npx @angular/cli@next new nam-project-shell --routing
+tao các app micro con:
+npx ng generate application nam-app (tạo bên trong project chính)
+chúng ta cần custom webpack config nên cần install thêm @angular-builders/custom-webpack.
+bổ sung thêm đoạn script trong package.json
+ví dụ:
+  "scripts": {
+    "start:shell": "ng serve --project=acme-email-client --port 5200",
+    "start:mailbox": "ng serve --project=mailbox --port 5300",
+    "start:calendar": "ng serve --project=calendar --port 5400"
+  },
+
+để đảm bảo project sẽ sử dụng yarn khi cài đặt các package qua lệnh ng add có thể sử dụng:
+npx ng config cli.packageManager yarn
+
+bật tính năng module Federation:
+-cần sử dụng custom webpack, để tạo ra file webpack config sau đó thay thế builder mặc định trong angular.json.
+ví dụ: chúng ta tạo 2 file webpack.config.js và webpack.prod.config.js để sử dụng với môi trường dev và product.
+-thay thế @angular-devkit/build-angular thành @angular-builders/custom-webpack.
+-thêm config của webpack mà chúng ta vừa tạo.
+-thực hiện config tương tự với các app micro.
+
+tiếp đến chúng ta thực hiện config shell trong các file webpack custom:
+-cấu hình port của shell cùng với tên (uniqueName) cho shell và mỗi 1 app.
+-tiếp đến shell sẽ trỏ đến những app micro nào thì cần phần remotes chứa các app micro (bao gồm tên và path dẫn đến app đó).
+nếu các micro app cùng sử dụng Angular thì chúng ta có thể share các phần code, module,service , component common nếu chúng ta muốn.
+
+tiếp đến config routing trỏ đến các app micro:
+-cần định nghĩa path cho các app micro.
+-loadChildren với các import module sẽ được định nghĩa ở file 'types.declare.ts'
+-việc tạo file 'types.declare.ts' nhằm mục đích báo cho typeScript là nó tồn tại (do đường dẫn 'mailbox/MailboxModule' không thật sử
+tồn tại)
+(nói cách khác là loadChildren sẽ trỏ đến module của app micro tương ứng qua tên của app micro được cấu hình ở app micro đó)
+
+tiếp đến config các remote app:
+-cấu hình port và uniqueName cho app micro.
+-định nghĩa các thành phần như name, library, đặc biệt là file name cần giống với phần shell chúng ta đã config
+mục đích của filename là để shell có thể truy cập vào app micro thông qua file js đó.
+-phần exposes cho phép chúng ta config những gì sẽ được public ra bên ngoài
+ở đây public ra bên ngoài là module của app micro để shell có thể trỏ đến module mong muốn trong app micro trong routing của shell.
