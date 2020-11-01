@@ -777,3 +777,29 @@ bind: là phương thức để tạo ra 1 function khi được call, từ kho�
 cùng với một chuỗi giá trị nhất định được cung cấp khi function mới được gọi.
 Nói cách khác, bind giúp chúng ta tạo ra được "function" cùng với "this" được rằng buộc với object.
 Nghĩa là nó giúp chúng ta lấy được property bên trong object ( nếu property đó tồn tại trong object và trong cả global).
+
+micro frontends:
+ý tưởng sẽ phân tách các ứng dụng thành các thành phần kết hợp với các tính năng , mỗi tính năng sẽ được phát triển bởi 1 team độc lập.
+mỗi 1 project trong ứng dụng sẽ là chứa đựng 1 tính năng riêng biệt bao gồm từ db, backend, frontend.
+phương pháp để xử dụng:
+Iframe:
+phương pháp này dễ để áp dụng nhưng có chứa nhiều giới hạn như việc navigation , thực thi các đoạn javascript từ Host app.
+proxy like nginx:
+phương pháp này yêu cầu việc phát triển các ứng dụng phải độc lập, ví dụ <host>/mainbox, <host>/calendar là các app frontend khác nhau.
+phương pháp này có 1 vấn đề là khi navigation sang 1 app khác thì bạn sẽ bị reload giống với các ứnng dụng client - server thông thường.
+web component:
+đây là 1 công nghệ không quá mới trong thời gian trở lại đây. các framework áp dụng hoặc tạo ra custom elements khá nhiều. ví dụ như
+angular elements, stencil,...
+ví dụ <app-product></app-product>
+Chúng có ưu điểm là bạn có thể tạo ra được các element và có thể sử dụng như một thẻ html thông thường ở bất kì cứ framework nào (framework Agnostic).
+Orchestrator framework:
+webpack 5 and module Federation, piral, luigi, single-spa (các công cụ, công nghệ phục vụ cho micro frontend).
+
+để các micro frontend có thể chạy được trên cùng 1 app, chúng ta cần 1 shell (có thể gọi là 1 host). Trong shell sẽ seup 1 số thứ như routing hay
+shared state ,... việc tạo ra 1 shell app có thể sẽ ảnh hưởng đến công nghệ áp dụng cho micro frontend.
+ví dụ: nếu chúng ta lựa chọn angular hay reactive làm shell app thì các micro app sẽ phải có tần wrapper để có thể chạy được đó.
+vì routing của các framework là specific cho từng loại framework. nên để route được và render đúng thì cần phải tuân thủ theo từng ràng buộc của
+framework.
+
+tạo ra app chính (sell):
+npx @angular/cli@next new nam-project-shell --routing
