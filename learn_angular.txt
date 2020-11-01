@@ -746,6 +746,13 @@ enable trở lại. nên nếu user nhanh tay vẫn có thể ấn button và v�
 ý tưởng thay vì ngSubmit sẽ trigger thẳng hàm submit , thay vào đó mình sẽ tạo ra 1 subject tên formSubmit$ và handle chỉ khi status
 của form là VALID thì formSubmit$ mới emit một value => call submitForm.
 
+ngoài cách sử dụng dynamic form sử dụng entryComponent thì ta có thể sử dụng với angular Ivy:
+sừ dụng với method async và thực hiện tạo biến để import component cần sử dụng
+ví dụ:
+async addynamic(){
+  const {Component-name} = await import('link-componenet');
+  // thực hiện tạo dynamic component here
+}
 
 sự khác nhau giữa {{}} và []:
 {{}}: là một form cơ bản của nội suy string. Nó là 1 cách đơn giản để thay thế HTML string cùng với kết quả của rằng buộc. và

@@ -135,6 +135,13 @@ const routes: Routes = [
     path: "dynamic-component",
     component: DynamicComponentComponent,
   },
+  {
+    path: "component-dynamic",
+    loadChildren: () =>
+      import(
+        "./module/dyamic-component-angular-ivy/dyamic-component-angular-ivy.module"
+      ).then((result) => result.DyamicComponentAngularIvyModule),
+  },
 
   // page error
   {
