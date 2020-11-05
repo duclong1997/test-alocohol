@@ -825,20 +825,26 @@ ví dụ: chúng ta tạo 2 file webpack.config.js và webpack.prod.config.js đ
 -thực hiện config tương tự với các app micro.
 
 tiếp đến chúng ta thực hiện config shell trong các file webpack custom:
--cấu hình port của shell cùng với tên (uniqueName) cho shell và mỗi 1 app.
+-cấu hình port (publicPath) của shell cùng với tên (uniqueName) cho shell và mỗi 1 app.
 -tiếp đến shell sẽ trỏ đến những app micro nào thì cần phần remotes chứa các app micro (bao gồm tên và path dẫn đến app đó).
 nếu các micro app cùng sử dụng Angular thì chúng ta có thể share các phần code, module,service , component common nếu chúng ta muốn.
 
 tiếp đến config routing trỏ đến các app micro:
 -cần định nghĩa path cho các app micro.
--loadChildren với các import module sẽ được định nghĩa ở file 'types.declare.ts'
--việc tạo file 'types.declare.ts' nhằm mục đích báo cho typeScript là nó tồn tại (do đường dẫn 'mailbox/MailboxModule' không thật sử
+-loadChildren với các import module sẽ được định nghĩa ở file 'types.d.ts'
+-việc tạo file 'types.d.ts' nhằm mục đích báo cho typeScript là nó tồn tại (do đường dẫn 'mailbox/MailboxModule' không thật sử
 tồn tại)
 (nói cách khác là loadChildren sẽ trỏ đến module của app micro tương ứng qua tên của app micro được cấu hình ở app micro đó)
 
 tiếp đến config các remote app:
--cấu hình port và uniqueName cho app micro.
+-cấu hình port (publicPath) và uniqueName cho app micro.
 -định nghĩa các thành phần như name, library, đặc biệt là file name cần giống với phần shell chúng ta đã config
 mục đích của filename là để shell có thể truy cập vào app micro thông qua file js đó.
 -phần exposes cho phép chúng ta config những gì sẽ được public ra bên ngoài
 ở đây public ra bên ngoài là module của app micro để shell có thể trỏ đến module mong muốn trong app micro trong routing của shell.
+
+tiếp đến config các router trong module của app micro:
+tạo các router với các component tương ứng trong model của app micro.
+
+giống với micro service muốn 1 project chạy được cần các micro chạy được
+run các app micro chạy và sau đó run app shell.
