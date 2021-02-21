@@ -754,6 +754,25 @@ async addynamic(){
   // thực hiện tạo dynamic component here
 }
 
+khi bạn muốn tác động disable hoặc envalue ở trong reactive form control.
+nếu như bạn khai báo:
+ this.form = this.fb.group({
+      name: [''],
+    });
+
+thì khi bạn sử dụng [disabled]="disabledName" trên form nó sẽ không hoạt động. do bạn chưa set disabled vào control của mình.
+cách giải quyết:
+1: khởi tạo lại form
+this.form = this.fb.group({
+  name: [{ value: '', disabled: false }],
+});
+2: tác động đến event trên template gọi xuống method và sử dụng FormControl.enable() hoặc FormControl.disable()
+this.form.get('name').enable();
+hoặc
+this.form.get('name').disable();
+3 sử dụng directive:
+xem ở directives/disabbled-control.directive.ts
+
 sự khác nhau giữa {{}} và []:
 {{}}: là một form cơ bản của nội suy string. Nó là 1 cách đơn giản để thay thế HTML string cùng với kết quả của rằng buộc. và
 trên form html sẽ nhân kết quả răng buộc đó.

@@ -15,10 +15,11 @@ export class TestReactiveFormComponent implements OnInit {
   signInForm: FormGroup;
 
   formSubmit$ = new Subject<any>();
+  disabled = false;
 
   // sử dụng FormBuilder giúp dễ dành trong biệc khởi tạo formcontrol không cần sử dụng new
   constructor(
-    private bf: FormBuilder,
+    private fb: FormBuilder,
     private apiTestService: ApiTestService
   ) {}
 
@@ -29,7 +30,7 @@ export class TestReactiveFormComponent implements OnInit {
   }
 
   initFormSignIn() {
-    this.signInForm = this.bf.group(
+    this.signInForm = this.fb.group(
       {
         // cú pháp khi khởi tạo formControl trong group với FormBuilder sẽ truyền vào 1 mảng với 3 phần tử
         // 1: giá trị mặc định
@@ -48,7 +49,7 @@ export class TestReactiveFormComponent implements OnInit {
         password: ["", [Validators.required, Validators.email]],
         confirmPassword: ["", [Validators.required, Validators.email]],
         // from group
-        address: this.bf.group({
+        address: this.fb.group({
           // custom validator (sync validator) sử dụng với function
           street: ["", Validators.compose([NoWhitespaceValidator()])],
           // way 2: group nhiều sử dụng Validators.compose
@@ -64,9 +65,9 @@ export class TestReactiveFormComponent implements OnInit {
           ],
         }),
         // form array have element is group
-        elements: this.bf.array([]),
+        elements: this.fb.array([]),
 
-        formAsync: this.bf.group({
+        formAsync: this.fb.group({
           // way 1: async Validator with directive
           // sử dụng directive implements AsyncValidator
           // trên template sẽ call directive đó để thực hiện validator
@@ -81,6 +82,11 @@ export class TestReactiveFormComponent implements OnInit {
             Validators.composeAsync([userAsyncValidator(this.apiTestService)]),
           ],
         }),
+
+        // way 1: disable control
+        name1: [{ value: "name1", disabled: false }],
+        // way 2 : sử dụng directvice
+        name2: ["name2"],
       },
       // validator 2 controls in reactive form
       {
@@ -107,7 +113,7 @@ export class TestReactiveFormComponent implements OnInit {
   }
 
   child() {
-    return this.bf.group({
+    return this.fb.group({
       name: [""],
       id: [0],
     });

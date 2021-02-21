@@ -1,22 +1,21 @@
 <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <form class="sign-in-form" [formGroup]="signInForm" autocomplete="off">
-        <h2>Sign in</h2>
-        <div class="row-control">
-          <mat-form-field [appearance]="'outline'">
-            <mat-label>Username</mat-label>
-            <input matInput formControlName="username">
-          </mat-form-field>
-        </div>
-        <!-- password -->
-        <div class="row-control">
-          <mat-form-field [appearance]="'outline'">
-            <mat-label>Password</mat-label>
-            <input type="password" matInput formControlName="password">
-          </mat-form-field>
-          <span class="text-danger"
-            *ngIf="signInForm.get('password').errors && (signInForm.get('password').dirty || signInForm.get('password').touched)">
+    <div class="row">
+        <div class="col-12">
+            <form class="sign-in-form" [formGroup]="signInForm" autocomplete="off">
+                <h2>Sign in</h2>
+                <div class="row-control">
+                    <mat-form-field [appearance]="'outline'">
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="username">
+                    </mat-form-field>
+                </div>
+                <!-- password -->
+                <div class="row-control">
+                    <mat-form-field [appearance]="'outline'">
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput formControlName="password">
+                    </mat-form-field>
+                    <span class="text-danger" *ngIf="signInForm.get('password').errors && (signInForm.get('password').dirty || signInForm.get('password').touched)">
             <small *ngIf="signInForm.get('password').errors.required">
               password khong duoc de trong
             </small>
@@ -24,16 +23,15 @@
               password sai dinh dang
             </small>
           </span>
-        </div>
+                </div>
 
-        <!-- confirm password -->
-        <div class="row-control">
-          <mat-form-field [appearance]="'outline'">
-            <mat-label>confirmPassword</mat-label>
-            <input type="password" matInput formControlName="confirmPassword">
-          </mat-form-field>
-          <span class="text-danger"
-            *ngIf="signInForm.get('confirmPassword').errors && (signInForm.get('confirmPassword').dirty || signInForm.get('confirmPassword').touched)">
+                <!-- confirm password -->
+                <div class="row-control">
+                    <mat-form-field [appearance]="'outline'">
+                        <mat-label>confirmPassword</mat-label>
+                        <input type="password" matInput formControlName="confirmPassword">
+                    </mat-form-field>
+                    <span class="text-danger" *ngIf="signInForm.get('confirmPassword').errors && (signInForm.get('confirmPassword').dirty || signInForm.get('confirmPassword').touched)">
             <small *ngIf="signInForm.get('confirmPassword').errors.required">
               cofirm password khong duoc de trong
             </small>
@@ -44,34 +42,31 @@
               confirm password không giống với password
             </small>
           </span>
-        </div>
-        <!-- nester group  -->
-        <div formGroupName="address">
-          <div>
-            <div class="row-control">
-              <mat-form-field [appearance]="'outline'">
-                <mat-label>street</mat-label>
-                <input matInput formControlName="street">
-              </mat-form-field>
-              <span class="text-danger"
-                *ngIf="signInForm.get('address.street').errors && (signInForm.get('address.street').dirty || signInForm.get('address.street').touched)">
+                </div>
+                <!-- nester group  -->
+                <div formGroupName="address">
+                    <div>
+                        <div class="row-control">
+                            <mat-form-field [appearance]="'outline'">
+                                <mat-label>street</mat-label>
+                                <input matInput formControlName="street">
+                            </mat-form-field>
+                            <span class="text-danger" *ngIf="signInForm.get('address.street').errors && (signInForm.get('address.street').dirty || signInForm.get('address.street').touched)">
                 <!-- whitespace: return custom validator errors -->
                 <small *ngIf="signInForm.get('address.street').errors.whitespace">
                   {{signInForm.get('address.street').errors.whitespace}}
                 </small>
               </span>
-            </div>
-            <div class="row-control">
-              <mat-form-field [appearance]="'outline'">
-                <mat-label>city</mat-label>
-                <input matInput formControlName="city" id="city">
-              </mat-form-field>
-            </div>
-            <div>
-              <!-- validation property in  nest group  -->
-              <span
-                *ngIf="signInForm.get('address.city').errors && (signInForm.get('address.city').dirty || signInForm.get('address.city').touched)"
-                class="text-danger">
+                        </div>
+                        <div class="row-control">
+                            <mat-form-field [appearance]="'outline'">
+                                <mat-label>city</mat-label>
+                                <input matInput formControlName="city" id="city">
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <!-- validation property in  nest group  -->
+                            <span *ngIf="signInForm.get('address.city').errors && (signInForm.get('address.city').dirty || signInForm.get('address.city').touched)" class="text-danger">
                 <small *ngIf="signInForm.get('address.city')?.errors?.required">
                   city khong duoc de trong
                 </small>
@@ -79,59 +74,57 @@
                   city sai dinh dang
                 </small>
               </span>
-            </div>
-          </div>
-        </div>
-        <!-- array form  -->
-        <div formArrayName="elements">
-          <h3>elements</h3>
-          <button mat-raised-button color="primary" class="mr-3" (click)="addElement()">
+                        </div>
+                    </div>
+                </div>
+                <!-- array form  -->
+                <div formArrayName="elements">
+                    <h3>elements</h3>
+                    <button mat-raised-button color="primary" class="mr-3" (click)="addElement()">
             Add element
           </button>
-          <!-- array elements  -->
-          <div class="mt-3" *ngFor="let item of elements().controls; let i= index">
+                    <!-- array elements  -->
+                    <div class="mt-3" *ngFor="let item of elements().controls; let i= index">
 
-            <!-- element group -->
-            <div [formGroupName]="i">
-              elemet of {{i}}:
-              <!-- property of element group -->
-              <div class="row-control">
-                <mat-form-field [appearance]="'outline'">
-                  <mat-label>id</mat-label>
-                  <input matInput formControlName="id">
-                </mat-form-field>
-              </div>
+                        <!-- element group -->
+                        <div [formGroupName]="i">
+                            elemet of {{i}}:
+                            <!-- property of element group -->
+                            <div class="row-control">
+                                <mat-form-field [appearance]="'outline'">
+                                    <mat-label>id</mat-label>
+                                    <input matInput formControlName="id">
+                                </mat-form-field>
+                            </div>
 
-              <div class="row-control">
-                <mat-form-field [appearance]="'outline'">
-                  <mat-label>name: </mat-label>
-                  <input matInput formControlName="name">
-                </mat-form-field>
-              </div>
-              <!-- remove element  -->
-              <button mat-raised-button color="primary" class="mr-3" (click)="removeElement(i)">
+                            <div class="row-control">
+                                <mat-form-field [appearance]="'outline'">
+                                    <mat-label>name: </mat-label>
+                                    <input matInput formControlName="name">
+                                </mat-form-field>
+                            </div>
+                            <!-- remove element  -->
+                            <button mat-raised-button color="primary" class="mr-3" (click)="removeElement(i)">
                 remove element
               </button>
-            </div>
+                        </div>
 
-          </div>
-        </div>
+                    </div>
+                </div>
 
-        <!-- Async form validator -->
-        <div formGroupName="formAsync" class="mt-3">
-          <div class="row-control">
-            <mat-form-field [appearance]="'outline'">
-              <!-- way 1: Directive AsyncValidator -->
-              <!-- appUserNameApi: directive implements AsyncValidator -->
-              <mat-label>name Async</mat-label>
-              <input matInput formControlName="nameAsync" appUserNameApi>
-            </mat-form-field>
-          </div>
-          <div>
-            <!-- validation property in  nest group  -->
-            <span
-              *ngIf="signInForm.get('formAsync.nameAsync').errors && (signInForm.get('formAsync.nameAsync').dirty || signInForm.get('formAsync.nameAsync').touched)"
-              class="text-danger">
+                <!-- Async form validator -->
+                <div formGroupName="formAsync" class="mt-3">
+                    <div class="row-control">
+                        <mat-form-field [appearance]="'outline'">
+                            <!-- way 1: Directive AsyncValidator -->
+                            <!-- appUserNameApi: directive implements AsyncValidator -->
+                            <mat-label>name Async</mat-label>
+                            <input matInput formControlName="nameAsync" appUserNameApi>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <!-- validation property in  nest group  -->
+                        <span *ngIf="signInForm.get('formAsync.nameAsync').errors && (signInForm.get('formAsync.nameAsync').dirty || signInForm.get('formAsync.nameAsync').touched)" class="text-danger">
               <small *ngIf="signInForm.get('formAsync.nameAsync')?.errors?.required">
                 name Async khong duoc de trong
               </small>
@@ -143,20 +136,18 @@
                 name Async đã tồn tại
               </small>
             </span>
-          </div>
+                    </div>
 
-          <div class="row-control">
-            <mat-form-field [appearance]="'outline'">
-              <!-- way 2: function AsyncValidator -->
-              <mat-label>name Async 2</mat-label>
-              <input matInput formControlName="nameAsync2">
-            </mat-form-field>
-          </div>
-          <div>
-            <!-- validation property in nest group  -->
-            <span
-              *ngIf="signInForm.get('formAsync.nameAsync2').errors && (signInForm.get('formAsync.nameAsync2').dirty || signInForm.get('formAsync.nameAsync2').touched)"
-              class="text-danger">
+                    <div class="row-control">
+                        <mat-form-field [appearance]="'outline'">
+                            <!-- way 2: function AsyncValidator -->
+                            <mat-label>name Async 2</mat-label>
+                            <input matInput formControlName="nameAsync2">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <!-- validation property in nest group  -->
+                        <span *ngIf="signInForm.get('formAsync.nameAsync2').errors && (signInForm.get('formAsync.nameAsync2').dirty || signInForm.get('formAsync.nameAsync2').touched)" class="text-danger">
               <small *ngIf="signInForm.get('formAsync.nameAsync2')?.errors?.required">
                 name Async 2 khong duoc de trong
               </small>
@@ -167,29 +158,40 @@
                 name Async 2 đã tồn tại
               </small>
             </span>
-          </div>
+                    </div>
+                </div>
+
+                <mat-form-field [appearance]="'outline'">
+                    <!-- way 1: disable control -->
+                    <mat-label>name (disabel control)</mat-label>
+                    <input matInput formControlName="name1" [disabled]="disabled">
+                </mat-form-field>
+
+                <mat-form-field [appearance]="'outline'">
+                    <!-- way2: disable control by directive -->
+                    <mat-label>name (disabel control)</mat-label>
+                    <input matInput formControlName="name2" [appDisabledControl]="disabled">
+                </mat-form-field>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
-  <div class="row mp-3 mt-3">
-    <div class="col-12 mb-2">
-      <!-- invalid form validatio -->
-      <button mat-raised-button color="primary" (click)="viewRegister()" class="mr-3" [disabled]="signInForm.invalid">
+    <div class="row mp-3 mt-3">
+        <div class="col-12 mb-2">
+            <!-- invalid form validatio -->
+            <button mat-raised-button color="primary" (click)="viewRegister()" class="mr-3" [disabled]="signInForm.invalid">
         Register
       </button>
-      <!-- validate: async validator -->
-      <button mat-raised-button color="primary" (click)="formSubmit$.next()" class="mr-3"
-        [disabled]="signInForm.invalid">
+            <!-- validate: async validator -->
+            <button mat-raised-button color="primary" (click)="formSubmit$.next()" class="mr-3" [disabled]="signInForm.invalid">
         Register async
       </button>
 
-      <button mat-raised-button color="warn" (click)="setvalue()"> Set value default</button>
+            <button mat-raised-button color="warn" (click)="setvalue()"> Set value default</button>
+        </div>
+        <!-- value reactive form  -->
+        <div class="col-12">
+            <h4>value reactive form:</h4>
+            {{signInForm.value | json}}
+        </div>
     </div>
-    <!-- value reactive form  -->
-    <div class="col-12">
-      <h4>value reactive form:</h4>
-      {{signInForm.value | json}}
-    </div>
-  </div>
 </div>
