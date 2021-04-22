@@ -879,7 +879,7 @@ cách sử dụng:
     return item.id;
   }
 
-  với 'return item.id' nó sẽ xác định unique cho item trong list
+  với 'return item.id' nó sẽ xác định unique (định danh) cho item trong list
   trên template:
   <div *ngFor="let item of lst; trackBy: identify">
     <p>{{item.name}}</p>
