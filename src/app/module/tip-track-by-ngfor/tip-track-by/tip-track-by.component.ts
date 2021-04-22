@@ -36,28 +36,7 @@ export class TipTrackByComponent implements OnInit {
   }
 
   insertNew() {
-    this.lst = [
-      {
-        id: 1,
-        name: "long1",
-      },
-      {
-        id: 2,
-        name: "long2",
-      },
-      {
-        id: 3,
-        name: "long3",
-      },
-      {
-        id: 4,
-        name: "long4",
-      },
-      {
-        id: 5,
-        name: "long5",
-      },
-    ];
+    this.lst.push({ id: this.lst.length, name: `long${this.lst.length}` });
   }
 
   update(id: number) {
