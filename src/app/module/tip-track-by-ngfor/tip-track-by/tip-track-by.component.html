@@ -1,0 +1,11 @@
+<p>
+  tip-track-by works!
+</p>
+
+<div *ngFor="let item of lst; trackBy: identify">
+  <p>
+    {{item.name}}<button (click)="update(item.id)">update</button>
+  </p>
+</div>
+
+<button (click)="insertNew()">insert</button>

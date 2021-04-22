@@ -867,3 +867,21 @@ tạo các router với các component tương ứng trong model của app micro
 
 giống với micro service muốn 1 project chạy được cần các micro chạy được
 run các app micro chạy và sau đó run app shell.
+
+tip track by trong ngfor:
+được sử dụng để tối ưu performance trong list sau khi insert.
+nhằm mục đích thông báo với angular đây là phần tử cố định sẽ không cần render lại nếu không có sử thay đổi.
+=> sử dụng kỹ thuật trackby function
+
+cách sử dụng:
+  tạo method:
+  identify(index, item) {
+    return item.id;
+  }
+
+  với 'return item.id' nó sẽ xác định unique cho item trong list
+  trên template:
+  <div *ngFor="let item of lst; trackBy: identify">
+    <p>{{item.name}}</p>
+  </div>
+  truyền "identify" vào trong "trackBy"

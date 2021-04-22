@@ -142,7 +142,13 @@ const routes: Routes = [
         "./module/dyamic-component-angular-ivy/dyamic-component-angular-ivy.module"
       ).then((result) => result.DyamicComponentAngularIvyModule),
   },
-
+  {
+    path: "track-by",
+    loadChildren: async () =>
+      import("./module/tip-track-by-ngfor/tip-track-by-ngfor.module").then(
+        (result) => result.TipTrackByNgforModule
+      ),
+  },
   // page error
   {
     path: "**",
