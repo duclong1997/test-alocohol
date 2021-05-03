@@ -1,0 +1,6 @@
+@import "../../core/settings";
+
+.light {
+  color: #c697ff;
+  background-color: map-get($colors, green);
+}
