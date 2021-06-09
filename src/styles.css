@@ -1,5 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
 /* import file syles globl scss */
+
 @import "./styles/core/settings.scss";
+
+/*dung voi scss -> import file styles.scss*/
+
+
+/*dung voi css -> import styles -> angular.json*/
