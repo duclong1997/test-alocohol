@@ -99,7 +99,10 @@ export class TestReactiveFormComponent implements OnInit {
   filterFormSubmit() {
     this.formSubmit$
       .pipe(
-        tap(() => this.signInForm.markAsDirty()),
+        tap(() => {
+          // mark control đã được chạm vào và thay đổi (không còn được nguyên như lúc đầu)
+          this.signInForm.markAsDirty();
+        }),
         switchMap(() =>
           this.signInForm.statusChanges.pipe(
             startWith(this.signInForm.status),

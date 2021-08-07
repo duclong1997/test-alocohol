@@ -636,6 +636,15 @@ touched:(true) là khi người dùng đã focus vào control rồi sau đó blu
 untouched:(true) là chưa đụng chạm gì, hoặc lần đầu focus và chưa bị mất focus.
 dirty: (true) là nếu người dùng thay đổi giá trị của control - ví dụ nhấp 1 kí tự vào ô input hoặc focus vào rồi xoá đi.
 pristine:(true) là người dùng chưa thay đổi value của control mặc dù người dùng có thể touch nhưng chưa sửa đổi.
+clearValidators(): function(): void: clear validator
+clearAsyncValidators(): functiom(): void: clear async validator
+markAsTouched(): function(): void: mark control được touched (kích hoạt control đó dược chạm).
+markAllAsTouched(): function(): void: mark all controls được touched (kích hoạt toàn bộ control được chạm)
+markAsUntouched(): function(): void: mark control không được touch( control không được chạm)
+markAsDirty(): functiom(): void: mark control bị dirty (bao gồm bị thay đổi vào bị cham)
+markAsPristine(): function(): void: mark control được giữ nguyên (chưa bị thay đổi gì cả)
+markAsPending(): function(): void: mark control ở trạng thái pending
+updateValueAndValidity(): function(): void: tính toán lại value, validation của control
 
 template-driven forms validation:
 required: yêu cầu form control không được phép bỏ trống.
