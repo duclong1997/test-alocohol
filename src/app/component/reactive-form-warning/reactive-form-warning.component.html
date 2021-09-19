@@ -1,0 +1,13 @@
+<div class="mt-5">
+  <h2>With Warning</h2>
+  <form [formGroup]="form">
+    <div class="form-group">
+      <!-- sử dụng directive [appDisabledControl] thay cho [disabled] -->
+      <input placeholder="Name" class="form-control" type="text" formControlName="name"
+        [appDisabledControl]="disabledName" autofocus />
+    </div>
+  </form>
+
+  <!-- appDisabledControl: có thể disable formcontrol trên template -->
+  <button class='btn btn-primary' (click)="disabledName = !disabledName">Toggle name state</button>
+</div>

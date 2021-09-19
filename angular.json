@@ -11,41 +11,48 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          // custom config with webpack for build
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/app-test-alcohol",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
-            "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              {
-                "input": "src/styles/theme/light/light-theme.scss",
-                "bundleName": "light-theme",
-                "inject": false,
-                "lazy": false
-              },
-              {
-                "input": "src/styles/theme/dark/dark-theme.scss",
-                "bundleName": "dark-theme",
-                "inject": false,
-                "lazy": false
-              }
-            ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/popper.js/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ]
+            "customWebpackConfig": {
+              "path": "./webpack.config.js"
+            }
           },
+          // "builder": "@angular-devkit/build-angular:browser",
+          // "options": {
+          //   "outputPath": "dist/app-test-alcohol",
+          //   "index": "src/index.html",
+          //   "main": "src/main.ts",
+          //   "polyfills": "src/polyfills.ts",
+          //   "tsConfig": "src/tsconfig.app.json",
+          //   "aot": true,
+          //   "assets": [
+          //     "src/favicon.ico",
+          //     "src/assets"
+          //   ],
+          //   "styles": [
+          //     "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+          //     "src/styles.css",
+          //     "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          //     {
+          //       "input": "src/styles/theme/light/light-theme.scss",
+          //       "bundleName": "light-theme",
+          //       "inject": false,
+          //       "lazy": false
+          //     },
+          //     {
+          //       "input": "src/styles/theme/dark/dark-theme.scss",
+          //       "bundleName": "dark-theme",
+          //       "inject": false,
+          //       "lazy": false
+          //     }
+          //   ],
+          //   "scripts": [
+          //     "node_modules/jquery/dist/jquery.min.js",
+          //     "node_modules/popper.js/dist/umd/popper.min.js",
+          //     "node_modules/bootstrap/dist/js/bootstrap.min.js"
+          //   ]
+          // },
           "configurations": {
             "production": {
               "fileReplacements": [
@@ -74,9 +81,16 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          // custom config with webpack for run dev
+          // "builder": "@angular-devkit/build-angular:dev-server",
+          // "options": {
+          //   "browserTarget": "app-test-alcohol:build"
+          // },
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "app-test-alcohol:build"
+            "customWebpackConfig": {
+              "path": "./webpack.config.js"
+            }
           },
           "configurations": {
             "production": {
@@ -107,22 +121,14 @@
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
+            "assets": ["src/favicon.ico", "src/assets"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -148,9 +154,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

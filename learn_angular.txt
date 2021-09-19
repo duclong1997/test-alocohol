@@ -894,3 +894,92 @@ cách sử dụng:
     <p>{{item.name}}</p>
   </div>
   truyền "identify" vào trong "trackBy"
+
+config TailwindCSS in angular:
+- install:
+npm i tailwindcss postcss-scss postcss-import postcss-loader @angular-builders/custom-webpack -D
+or
+yarn add tailwindcss postcss-scss postcss-import postcss-loader @angular-builders/custom-webpack -D
+- import TailwindCSS in file style.scss (với đk project có sử dụng scss):
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+- tạo file: webpack.config.js:
++ nếu bạn sử dụng: postcss-loader@^3.0
+sử dụng đoạn code này:
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        loader: 'postcss-loader',
+        options: {
+          ident: 'postcss',
+          syntax: 'postcss-scss',
+          plugins: () => [
+            require('postcss-import'),
+            require('tailwindcss'),
+            require('autoprefixer'),
+          ],
+        },
+      },
+    ],
+  },
+};
++ nếu bạn sử dụng: postcss-loader@^4.0:
+sử dụng đoạn code này:
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            ident: 'postcss',
+            syntax: 'postcss-scss',
+            plugins: ['postcss-import', 'tailwindcss', 'autoprefixer'],
+          },
+        },
+      },
+    ],
+  },
+};
+- sửa file: angular.json để custom lại builder với file webpack.config.js:
+{
+  "architect": {
+    "build": {
+      "builder": "@angular-builders/custom-webpack:browser",
+      "options": {
+        "customWebpackConfig": {
+          "path": "./webpack.config.js"
+        }
+      }
+    },
+    "serve": {
+      "builder": "@angular-builders/custom-webpack:dev-server",
+      "options": {
+        "customWebpackConfig": {
+          "path": "./webpack.config.js"
+        }
+      }
+    }
+  }
+}
+
+DisabledControlDirective to disable Reactive Form control:
+các cách để làm việc với disable formcontrol trong reactive form:
+way 1:
+this.form = this.fb.group({
+  name: [{ value: '', disabled: false }],
+});
+way 2:
+this.form.get('name').enable();
+or
+this.form.get('name').disable();
+way 3: sử dụng Directive
+ví dụ:
+file disabled-control.directive.ts
+và componenet: reactive-form-warning
+lưu ý: với control bị disable => value của control sẽ bị lược bỏ hi truy xuất FormGroup.value
+muốn lấy value của tất cả control mà không phụ thuộc vào disable state => dùng FormGroup.getRawValue()

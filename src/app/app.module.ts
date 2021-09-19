@@ -23,6 +23,7 @@ import { DetailPhotoComponent } from "./component/detail-photo/detail-photo.comp
 import { DetailPostComponent } from "./component/detail-post/detail-post.component";
 import { DetailTodoComponent } from "./component/detail-todo/detail-todo.component";
 import { DetailComponent } from "./component/detail/detail.component";
+import { DisabledControlDirective } from "./component/directives/disabled-control.directive";
 import { DynamicComponentComponent } from "./component/dynamic-component/dynamic-component.component";
 import { DynamicOneComponent } from "./component/dynamic-one/dynamic-one.component";
 import { DynamicTwoComponent } from "./component/dynamic-two/dynamic-two.component";
@@ -37,12 +38,12 @@ import { ListTodoComponent } from "./component/list-todo/list-todo.component";
 import { ListUserComponent } from "./component/list-user/list-user.component";
 import { MainComponent } from "./component/main/main.component";
 import { PamameterComponent } from "./component/pamameter/pamameter.component";
+import { ReactiveFormWarningComponent } from "./component/reactive-form-warning/reactive-form-warning.component";
 import { ReactiveFormComponent } from "./component/reactive-form/reactive-form.component";
 import { SearchNameComponent } from "./component/search-name/search-name.component";
 import { TestReactiveFormComponent } from "./component/test-reactive-form/test-reactive-form.component";
 import { WeatherComponent } from "./component/weather/weather.component";
 import { UserNameApiDirective } from "./validator/user-name-api.directive";
-import { DisabledControlDirective } from './component/directives/disabled-control.directive';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { DisabledControlDirective } from './component/directives/disabled-contro
     DynamicOneComponent,
     DynamicTwoComponent,
     DisabledControlDirective,
+    ReactiveFormWarningComponent,
   ],
   imports: [
     BrowserModule,
