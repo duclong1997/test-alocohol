@@ -451,7 +451,7 @@ chú ý:
 zip sẽ complete khi 1 trong các children observable complte.
 zip sẽ throw nếu một trong các children throw error
 -race():sẽ emit giá trị của observable nào emit đầu tiên( nhanh nhất)và sẽ lại đi lặp lại cho đến 1 trong các children observable complete.
--merge(): không quan tâm đến thứ tự của các children oberservable emit không bị giới hạn bởi việc các observable con phải complete thì
+-merge(): không quan tâm đến thứ tự của các children observable emit không bị giới hạn bởi việc các observable con phải complete thì
 observable kế tiếp được subscribe.
 chú ý:
 emit bất cứ observable nào emit
@@ -983,3 +983,21 @@ file disabled-control.directive.ts
 và componenet: reactive-form-warning
 lưu ý: với control bị disable => value của control sẽ bị lược bỏ hi truy xuất FormGroup.value
 muốn lấy value của tất cả control mà không phụ thuộc vào disable state => dùng FormGroup.getRawValue()
+
+observable for @Output:
+way 1:
+// event
+@Output() someEvent = new EventEmitter();
+// obserable
+this.someSource$.pipe(
+   // additional logic/transformation
+).subscribe(data => this.someEvent.emit(data));
+way 2: kết hợp event và obserable
+// event and obserable
+@Output() someEvent = this.someSource$.pipe(
+  /* additional logic transformation */
+);
+trường hợp sử dụng:
+-Interval Output
+-State Selector (ngrx)
+-bất cứ thể loai stream gì mà các bạn nghĩ đến
