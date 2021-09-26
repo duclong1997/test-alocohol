@@ -244,7 +244,7 @@ với ouput:
 chú ý:
 với output thì sẽ sử dụng EventEmitted<kieu-du-lieu>();
 sử dụng two-way binding với ngModel
-với componenet con:
+với component con:
 @Input()tem: kiểu dữ liệu
 @Output()tenChange = new EventEmitter<Kiểu dữ liệu>();
 trên conponenet cha:
@@ -679,7 +679,7 @@ object khac.
 tử 1 cách linh hoạt. có thể add or remove
 thông thường mỗi 1 form sẽ bắt đầu bởi một formGroup, nó sẽ khai báo các AbstractControl trong nó.
 ví dụ:
-trong componenet:
+trong component:
 siginForm = new FormGroup(
   {
     username: new FormControl("value"), // <= value default
@@ -759,7 +759,7 @@ ngoài cách sử dụng dynamic form sử dụng entryComponent thì ta có th�
 sừ dụng với method async và thực hiện tạo biến để import component cần sử dụng
 ví dụ:
 async addynamic(){
-  const {Component-name} = await import('link-componenet');
+  const {Component-name} = await import('link-component');
   // thực hiện tạo dynamic component here
 }
 
@@ -980,7 +980,7 @@ this.form.get('name').disable();
 way 3: sử dụng Directive
 ví dụ:
 file disabled-control.directive.ts
-và componenet: reactive-form-warning
+và component: reactive-form-warning
 lưu ý: với control bị disable => value của control sẽ bị lược bỏ hi truy xuất FormGroup.value
 muốn lấy value của tất cả control mà không phụ thuộc vào disable state => dùng FormGroup.getRawValue()
 
@@ -1001,3 +1001,34 @@ trường hợp sử dụng:
 -Interval Output
 -State Selector (ngrx)
 -bất cứ thể loai stream gì mà các bạn nghĩ đến
+
+rxjs - subcribe và unsubscribe:
+EventEmitter:
+không cần unsubscribe, angular ddax tự làm việc đó.
+
+với sublect trong component
+nếu bạn subcribe trực tiếp vào subject mà không thực hiện bất cứ pipe operators nào thì sẽ không cần unsubscribe.
+nếu bạn có sử dụng pipe operators thì sẽ cần unsubscribe trong component OnDestroy.
+
+ActivatedRoute:
+có chứa 1 số obserable như paramMap, queryParamMap
+nếu bạn chỉ subcribe mà không gọi pipe operators thì sẽ không cần unsubscribe.
+nếu bạn có sử dụng pipe operators thì bạn sẽ cần unsubscribe trong component OnDestroy.
+
+subcribe vào obserable từ service:
+service có dạng singleton và bạn thực hiện subcribe thì bạn nên unsubscribe khi component OnDestroy.
+
+HttpClient:
+là một obserable khá đặc biệt nó chỉ emit một giá trị sau đó sẽ complete, khi Observable complete, nó sẽ không next tiếp value khác.
+nếu chỉ subcribe vào chính obserable đó mà không thực hiện pipe operators thì không cần unsubscribe.
+nếu subcribe mà có sử dụng pipe operators thì cần unsubscribe khi component OnDestroy.
+
+cách tiện lợi hơn mà không cần unsubscribe:
+-way 1: sử dụng async pipe trên file template
+ví dụ:
+<div *ngIf="stream$ | async as stream">
+  Làm gì đó với stream ở đây, ví dụ truy cập vào stream.body: {{stream.body}}
+</div>
+-way 2: kết hợp với operator takeUntil
+-way 3: tạo 1 service để làm việc unsubscribe cho component, service này sẽ có  life cycle giống như component
+lưu ý: với way 3, service sẽ not root scope

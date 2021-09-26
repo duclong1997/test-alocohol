@@ -44,6 +44,7 @@ import { SearchNameComponent } from "./component/search-name/search-name.compone
 import { TestReactiveFormComponent } from "./component/test-reactive-form/test-reactive-form.component";
 import { WeatherComponent } from "./component/weather/weather.component";
 import { UserNameApiDirective } from "./validator/user-name-api.directive";
+import { UnsubcribeComponentComponent } from './component/unsubcribe-component/unsubcribe-component.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { UserNameApiDirective } from "./validator/user-name-api.directive";
     DynamicTwoComponent,
     DisabledControlDirective,
     ReactiveFormWarningComponent,
+    UnsubcribeComponentComponent,
   ],
   imports: [
     BrowserModule,
