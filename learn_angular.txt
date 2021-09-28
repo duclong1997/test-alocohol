@@ -1032,3 +1032,13 @@ ví dụ:
 -way 2: kết hợp với operator takeUntil
 -way 3: tạo 1 service để làm việc unsubscribe cho component, service này sẽ có  life cycle giống như component
 lưu ý: với way 3, service sẽ not root scope
+
+javascript widget và embedded script:
+là một giải pháp dể đưa thêm các dịch vụ và tính năng vào trang web có sẵn chỉ bằng việc import đoạn mã nhúng (embedded script)
+và 1 sô config đơn giản.
+script được nhúng vào trang web sẽ thực hiện tất cả những bước cần có dể từ dods provide cho trang web làm "host" có thêm
+tính nawg hoàn chỉnh.
+phương pháp và lưu ý:
+-xung đột style, script với trang web gốc
+-bunđle size của script
+-các feature mà widget sử dụng không được hỗ trợ trên tình duyệt đang chạy website
